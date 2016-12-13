@@ -10,17 +10,27 @@ client.connect(function (err) {
         console.log("Connected to database!!");
 });
 
-/*exports.loginUser = function (user, pass) {
+exports.findUser = function (user, pass, callback) {
     // execute a query on our database
     client.query('SELECT username, password FROM users where username = $1::text', [user], function (err, result) {
-        if (err) throw err;
+        if (err)
+            return callback(false);
 
-        // just print the result to the console
-        console.log(result.rows[0]);
-
-        // disconnect the client
-        client.end(function (err) {
-            if (err) throw err;
-        });
+        return callback(result.rows[0].password == pass);
     });
-}*/
+}
+
+exports.insertUser = function (user, pass, callback) {
+    client.query('insert into users (high_score,password,username,exp_points) values (0, $1,$2,0)', [user, pass], function (err, result) {
+        if (err)
+            return callback(false);
+
+        return callback(true);
+    });
+}
+
+
+// disconnect the client
+/*client.end(function (err) {
+ if (err) throw err;
+ });*/

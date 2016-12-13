@@ -4,9 +4,22 @@ exports.loginUser = function (req, res) {
     var user = req.body.username;
     var pass = req.body.password;
 
-    console.log(req);
-    console.log(user);
-    console.log(pass);
+    db.findUser(user, pass, function (result) {
+        if (result)
+            res.sendStatus(200);
+        else
+            res.sendStatus(401);
+    });
+}
 
-    res.sendStatus(200);
+exports.registerUser = function (req, res) {
+    var user = req.body.username;
+    var pass = req.body.password;
+
+    db.insertUser(user, pass, function (result) {
+        if (result)
+            res.sendStatus(200);
+        else
+            res.sendStatus(401);
+    })
 }
