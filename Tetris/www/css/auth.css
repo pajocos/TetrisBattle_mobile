@@ -18,8 +18,11 @@ h1 {
     box-sizing: border-box;
 }
 
+.auth {
+    /*tablet depois centrar*/
+}
+
 .login {
-    vertical-align: middle;
     border-radius: 2px 2px 5px 5px;
     padding: 10px 20px 20px 20px;
     background: #ffffff;
@@ -38,11 +41,27 @@ h1 {
     color: #ccc;
 }
 
+.login input + i.fa {
+    color: #fff;
+    font-size: 1em;
+    position: absolute;
+    margin-top: -42px;
+    opacity: 0;
+    left: 0;
+    transition: all 0.1s ease-in;
+}
+
 .login input:focus {
     outline: none;
     color: #444;
     border-color: #2196F3;
     border-left-width: 35px;
+}
+
+.login input:focus + i.fa {
+    opacity: 1;
+    left: 30px;
+    transition: all 0.25s ease-out;
 }
 
 .login a {
