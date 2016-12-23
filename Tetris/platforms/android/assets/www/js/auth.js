@@ -9,12 +9,12 @@ $("#auth-button").click(function () {
 
     $.ajax({
         type: "POST",
-        contentType: "application/x-www-form-urlencoded",
+        contentType: "application/x-www-form-urlencoded; charset=utf-8",
         url: "http://192.168.1.5:3000/API/login",
         data: $.param({username: username, password: password}),
         dataType: "json",
+        crossDomain: true,
         success: function (data) {
-            console.log(data);
             alert("Success");
         },
         error: function (result) {

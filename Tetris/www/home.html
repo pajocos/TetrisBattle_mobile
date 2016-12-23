@@ -29,8 +29,7 @@
             * Enable inline JS: add 'unsafe-inline' to default-src
     -->
     <meta http-equiv="Content-Security-Policy"
-          content="default-src *; style-src 'self' http://* 'unsafe-inline'; script-src 'self' http://* 'unsafe-inline' 'unsafe-eval'; connect-src http://192.168.1.5:*"/>
-
+          content="default-src *; style-src 'self' http://* 'unsafe-inline'; script-src 'self' http://* 'unsafe-inline' 'unsafe-eval'"/>
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport"
@@ -38,32 +37,13 @@
 
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
-    <link rel="stylesheet" type="text/css" href="css/index.css">
-    <link rel="stylesheet" type="text/css" href="css/auth.css">
     <title>Login</title>
 </head>
 <body>
 
-<h1>Block's Battle</h1>
-
-<div class="auth">
-    <form class="login">
-        <p class="title">Log in</p>
-        <input id="username" type="text" placeholder="Username" autofocus/>
-        <i class="fa fa-user"></i>
-        <input id="password" type="password" placeholder="Password"/>
-        <i class="fa fa-key"></i>
-        <button id="auth-button">
-            <i class="spinner"></i>
-            <span class="login-button">Log in</span>
-        </button>
-    </form>
-</div>
 
 <script type="text/javascript" src="cordova.js"></script>
 <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-<script type="text/javascript" src="js/index.js"></script>
-<script type="text/javascript" src="js/auth.js"></script>
 
 </body>
 </html>

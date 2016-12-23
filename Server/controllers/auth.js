@@ -4,6 +4,8 @@ exports.loginUser = function (req, res) {
     var user = req.body.username;
     var pass = req.body.password;
 
+    console.log(user + " " + pass);
+
     db.findUser(user, pass, function (result) {
         if (result)
             res.sendStatus(200);

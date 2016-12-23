@@ -29,7 +29,8 @@
             * Enable inline JS: add 'unsafe-inline' to default-src
     -->
     <meta http-equiv="Content-Security-Policy"
-          content="default-src *; style-src 'self' http://* 'unsafe-inline'; script-src 'self' http://* 'unsafe-inline' 'unsafe-eval'"/>
+          content="default-src *; style-src 'self' http://* 'unsafe-inline'; script-src 'self' http://* 'unsafe-inline' 'unsafe-eval'; connect-src http://192.168.1.5:*"/>
+
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport"
@@ -48,9 +49,9 @@
 <div class="auth">
     <form class="login">
         <p class="title">Log in</p>
-        <input type="text" placeholder="Username" autofocus/>
+        <input id="username" type="text" placeholder="Username" autofocus/>
         <i class="fa fa-user"></i>
-        <input type="password" placeholder="Password"/>
+        <input id="password" type="password" placeholder="Password"/>
         <i class="fa fa-key"></i>
         <button id="auth-button">
             <i class="spinner"></i>
