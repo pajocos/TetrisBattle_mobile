@@ -21,7 +21,7 @@ exports.findUser = function (user, pass, callback) {
 }
 
 exports.insertUser = function (user, pass, callback) {
-    client.query('insert into users (high_score,password,username,exp_points) values (0, $1,$2,0)', [user, pass], function (err) {
+    client.query('insert into users (high_score,password,username,exp_points) values (0, $1,$2,0)', [pass, user], function (err) {
         if (err)
             return callback(false);
 
