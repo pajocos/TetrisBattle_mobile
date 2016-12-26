@@ -2,19 +2,19 @@
  * Created by paulo on 22/12/2016.
  */
 
-$("#auth-button").click(function () {
+$("#auth-button").click(function (e) {
 
     var username = $('#username').val();
     var password = $('#password').val();
 
     $.ajax({
         type: "POST",
-        contentType: "application/x-www-form-urlencoded; charset=utf-8",
+        contentType: "application/x-www-form-urlencoded",
         url: "http://192.168.1.5:3000/API/login",
         data: $.param({username: username, password: password}),
-        dataType: "json",
-        crossDomain: true,
+        dataType: "text",
         success: function (data) {
+            console.log(data);
             alert("Success");
         },
         error: function (result) {
@@ -22,4 +22,5 @@ $("#auth-button").click(function () {
             alert("Error");
         }
     });
+    e.preventDefault();
 });
