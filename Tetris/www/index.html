@@ -19,15 +19,7 @@
 -->
 <html>
 <head>
-    <!--
-    Customize this policy to fit your own app's needs. For more guidance, see:
-        https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
-    Some notes:
-        * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
-        * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
-        * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
-            * Enable inline JS: add 'unsafe-inline' to default-src
-    -->
+
     <meta http-equiv="Content-Security-Policy"
           content="default-src *; style-src 'self' http://* 'unsafe-inline'; script-src 'self' http://* 'unsafe-inline' 'unsafe-eval'; connect-src http://192.168.1.5:*"/>
 
@@ -37,6 +29,7 @@
           content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
 
     <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/index.css">
     <link rel="stylesheet" type="text/css" href="css/auth.css">
 
@@ -46,18 +39,76 @@
 
 <h1>Block's Battle</h1>
 
-<div class="auth">
-    <form class="login">
-        <p class="title">Log in</p>
-        <input id="username" type="text" placeholder="Username" autofocus/>
-        <i class="fa fa-user"></i>
-        <input id="password" type="password" placeholder="Password"/>
-        <i class="fa fa-key"></i>
-        <button id="auth-button">
-            <i class="spinner"></i>
-            <span class="login-button">Log in</span>
-        </button>
-    </form>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-login">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <form id="login-form" action="#" method="post" role="form" style="display: block;">
+                                <h2>LOGIN</h2>
+                                <div class="form-group">
+                                    <input type="text" name="username" id="username1" tabindex="1" class="form-control"
+                                           placeholder="Username" value="">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" name="password" id="password1" tabindex="2"
+                                           class="form-control" placeholder="Password">
+                                </div>
+                                <div class="col-xs-6 form-group pull-left checkbox">
+                                    <input id="checkbox1" type="checkbox" name="remember">
+                                    <label for="checkbox1">Remember Me</label>
+                                </div>
+                                <div class="col-xs-6 form-group pull-right">
+                                    <input type="submit" name="login-submit" id="login-submit" tabindex="4"
+                                           class="form-control btn btn-login" value="Log In">
+                                </div>
+                            </form>
+                            <form id="register-form" action="#" method="post" role="form" style="display: none;">
+                                <h2>REGISTER</h2>
+                                <div class="form-group">
+                                    <input type="text" name="username" id="username2" tabindex="1" class="form-control"
+                                           placeholder="Username" value="">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" name="password" id="password2" tabindex="2"
+                                           class="form-control" placeholder="Password">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" name="confirm-password" id="confirm-password" tabindex="2"
+                                           class="form-control" placeholder="Confirm Password">
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-6 col-sm-offset-3">
+                                            <input type="submit" name="register-submit" id="register-submit"
+                                                   tabindex="4" class="form-control btn btn-register"
+                                                   value="Register Now">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-6 tabs">
+                            <a href="#" class="active" id="login-form-link">
+                                <div class="login">LOGIN</div>
+                            </a>
+                        </div>
+                        <div class="col-xs-6 tabs">
+                            <a href="#" id="register-form-link">
+                                <div class="register">REGISTER</div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script type="text/javascript" src="cordova.js"></script>
