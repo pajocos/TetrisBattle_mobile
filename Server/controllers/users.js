@@ -4,19 +4,21 @@
  * Users sockets management
  */
 
-var socket;
+var clients = {};
 
 exports.start = function (io) {
-    socket = io;
 
-    io.sockets.on('connection', function (socket) {
-        console.log('socket connected');
+    io.sockets.on('connection', function (client) {
+        console.log('Client connected');
 
-        socket.on('disconnect', function () {
-            console.log('socket disconnected');
+        client.on('username', function (data) {
+            clients[data] = client.id;
+            console.log(clients);
         });
 
-        socket.emit('text', 'wow. such event. very real time.');
+        client.on('disconnect', function () {
+            console.log('Client disconnected');
+        });
     });
 }
 

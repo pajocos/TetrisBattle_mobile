@@ -28,6 +28,15 @@ $("#login-submit").click(function (e) {
     var password = $('#password1').val();
     var rememberMe = $('#checkbox1').val();
 
+    alert(rememberMe);
+
+    var storage = window.localStorage;
+    storage.setItem('username', username);
+    if (rememberMe == 'on') {
+        storage.setItem('remember', true);
+        storage.setItem('password', password);
+    }
+
     $.ajax({
         type: "POST",
         contentType: "application/x-www-form-urlencoded",

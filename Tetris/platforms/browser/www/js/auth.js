@@ -28,6 +28,8 @@ $("#login-submit").click(function (e) {
     var password = $('#password1').val();
     var rememberMe = $('#checkbox1').val();
 
+    GLOBAL_USERNAME = username;
+
     $.ajax({
         type: "POST",
         contentType: "application/x-www-form-urlencoded",
@@ -35,6 +37,7 @@ $("#login-submit").click(function (e) {
         data: $.param({username: username, password: password}),
         dataType: "text",
         success: function () {
+            alert(GLOBAL_USERNAME);
             window.location = "home.html";
         },
         error: function (result) {
