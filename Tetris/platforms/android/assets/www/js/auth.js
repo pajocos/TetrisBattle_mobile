@@ -2,8 +2,6 @@
  * Created by paulo on 22/12/2016.
  */
 
-var URL = "192.168.1.25";
-
 $(function () {
     $('#login-form-link').click(function (e) {
         $("#login-form").delay(100).fadeIn(100);
@@ -27,8 +25,6 @@ $("#login-submit").click(function (e) {
     var username = $('#username1').val();
     var password = $('#password1').val();
     var rememberMe = $('#checkbox1').val();
-
-    alert(rememberMe);
 
     var storage = window.localStorage;
     storage.setItem('username', username);

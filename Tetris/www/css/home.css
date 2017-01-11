@@ -1,0 +1,24 @@
+body {
+    padding-top: 10%;
+    background-color: rgba(0, 68, 66, 0.85);
+    color: #666666;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
+}
+
+.panel {
+    margin: 5% 10%;
+    border-radius: 5px;
+    color: #848c9d;
+    background-color: #e8e9ec;
+    text-align: center;
+}
+
+.logo {
+    width: 90%;
+    height: auto;
+    margin: 5% auto;
+}
+
+
+

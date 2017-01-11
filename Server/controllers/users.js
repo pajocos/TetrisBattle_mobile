@@ -12,7 +12,7 @@ exports.start = function (io) {
         console.log('Client connected');
 
         client.on('username', function (data) {
-            clients[data] = client.id;
+            clients[data.user] = client.id;
             console.log(clients);
         });
 
