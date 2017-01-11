@@ -2,6 +2,8 @@
  * Created by paulo on 22/12/2016.
  */
 
+var URL = "192.168.1.25";
+
 $(function () {
     $('#login-form-link').click(function (e) {
         $("#login-form").delay(100).fadeIn(100);
@@ -29,7 +31,7 @@ $("#login-submit").click(function (e) {
     $.ajax({
         type: "POST",
         contentType: "application/x-www-form-urlencoded",
-        url: "http://192.168.1.5:3000/API/login",
+        url: "http://" + URL + ":3000/API/login",
         data: $.param({username: username, password: password}),
         dataType: "text",
         success: function () {
@@ -57,7 +59,7 @@ $("#register-submit").click(function (e) {
         $.ajax({
             type: "POST",
             contentType: "application/x-www-form-urlencoded",
-            url: "http://192.168.1.5:3000/API/register",
+            url: "http://" + URL + ":3000/API/register",
             data: $.param({username: username, password: password}),
             dataType: "text",
             success: function () {

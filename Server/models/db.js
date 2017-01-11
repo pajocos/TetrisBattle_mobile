@@ -16,6 +16,9 @@ exports.findUser = function (user, pass, callback) {
         if (err)
             return callback(false);
 
+        if (result.rows == "")
+            return callback(false);
+
         return callback(result.rows[0].password == pass);
     });
 }
