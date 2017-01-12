@@ -16,12 +16,26 @@ exports.start = function (io) {
             console.log(clients);
         });
 
+        var data = sendPlayers();
+        client.emit('refreshPlayers', data);
+
         client.on('disconnect', function () {
+            //remover jogador da lista e mandar a lista para toda a gente de novo
+            //client.emit('refreshPlayers', data);
             console.log('Client disconnected');
         });
-
-        //client.emit('user_list', )
     });
+}
+
+function sendPlayers() {
+    var data = [];
+    for (var key in clients) {
+        if (clients.hasOwnProperty(key)) {
+            data.push(key);
+        }
+    }
+    console.log("players list: " + data);
+    return data;
 }
 
 

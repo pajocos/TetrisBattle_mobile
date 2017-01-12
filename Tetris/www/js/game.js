@@ -5,19 +5,20 @@
 $(function () {
 
     var socket = io.connect('http://192.168.1.25:3000');
-    var clients = [];
 
     socket.on('connect', function () {
         socket.emit('username', {user: window.localStorage.getItem('username')});
     });
 
     socket.on('refreshPlayers', function (playersList) {
-        //comparar diferenças entre as duas listas
-
+        //$('#loggedPlayers').empty();
+        for (var i = 0; i < playersList.length; i++) {
+            $('#loggedPlayers').append('<li class="list-group-item">' + playersList[i] + '</li>')
+        }
+        manageList();
     });
 
     updateLabels();
-    manageList();
     startNewGame();
 });
 
@@ -57,7 +58,7 @@ function manageList() {
 }
 
 function startNewGame() {
-    $("#newGame-submit").click(function(){
+    $("#newGame-submit").click(function () {
         var username = $('.active').html();
         alert(username);
         //start new game here

@@ -5,20 +5,22 @@
 $(function () {
 
     var socket = io.connect('http://192.168.1.25:3000');
-    var clients = [];
 
     socket.on('connect', function () {
         socket.emit('username', {user: window.localStorage.getItem('username')});
     });
 
     socket.on('refreshPlayers', function (playersList) {
-        //comparar diferenças entre as duas listas
-
+        //$('#loggedPlayers').empty();
+        for (var i = 0; i < playersList.length; i++) {
+            alert(playersList[i]);
+            $('#loggedPlayers').append('<li class="list-group-item">' + playersList[i] + '</li>')
+        }
     });
 
     updateLabels();
-
     manageList();
+    startNewGame();
 });
 
 function updateLabels() {
@@ -50,9 +52,17 @@ function updateLabels() {
 }
 
 function manageList() {
-    $("#list list-group-item").click(function (e) {
-        $(".list-group list-group-item").removeClass("active");
-        $(e.target).addClass("active");
+    $("ul li").click(function () {
+        $(this).parent().children().removeClass("active");
+        $(this).addClass("active");
+    })
+}
+
+function startNewGame() {
+    $("#newGame-submit").click(function () {
+        var username = $('.active').html();
+        alert(username);
+        //start new game here
     });
 }
 
