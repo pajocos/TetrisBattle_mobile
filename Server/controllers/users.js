@@ -25,6 +25,8 @@ exports.start = function (io) {
             console.log('Client disconnected');
         });
     });
+
+    //io.sockets.om()
 }
 
 function sendPlayers() {
