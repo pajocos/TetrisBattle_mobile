@@ -8,9 +8,10 @@ body {
 
 .panel {
     margin: 5% 10%;
-    border-radius: 5px;
+    padding-top: 5%;
+    border-radius: 10px;
     color: #848c9d;
-    background-color: #e8e9ec;
+    background-color: white;
     text-align: center;
 }
 
@@ -18,6 +19,36 @@ body {
     width: 90%;
     height: auto;
     margin: 5% auto;
+}
+
+.btn-newGame {
+    background-color: #E8E9EC;
+    outline: none;
+    color: #2D3B55;
+    font-size: 14px;
+    height: auto;
+    font-weight: normal;
+    padding: 14px 0;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 0px;
+    box-shadow: none;
+}
+
+.btn-newGame:hover,
+.btn-newGame:focus {
+    color: #fff;
+    background-color: #2D3B55;
+}
+
+.list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
+
+    color: #fff;
+    background-color: #2D3B55;
+}
+
+.list-group-item {
+    padding: 5px 15px;
 }
 
 

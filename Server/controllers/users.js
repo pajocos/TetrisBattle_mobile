@@ -19,6 +19,8 @@ exports.start = function (io) {
         client.on('disconnect', function () {
             console.log('Client disconnected');
         });
+
+        //client.emit('user_list', )
     });
 }
 
