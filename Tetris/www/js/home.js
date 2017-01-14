@@ -5,15 +5,22 @@
 $(function () {
 
     var socket = io.connect('http://' + URL + ':3000');
+    var username = window.localStorage.getItem('username');
 
     socket.on('connect', function () {
-        socket.emit('username', {user: window.localStorage.getItem('username')});
+        socket.emit('username', {user: username});
     });
 
     socket.on('refreshPlayers', function (playersList) {
-        //$('#loggedPlayers').empty();
-        for (var i = 0; i < playersList.length; i++) {
-            $('#loggedPlayers').append('<li class="list-group-item">' + playersList[i] + '</li>')
+        $('#loggedPlayers').empty();
+        if (playersList.length == 0) {
+            $('#loggedPlayers').html('<h1>No available players :(')
+        }
+        else {
+            for (var i = 0; i < playersList.length; i++) {
+                if (playersList[i] != username)
+                    $('#loggedPlayers').append('<li class="list-group-item">' + playersList[i] + '</li>')
+            }
         }
         manageList();
     });
@@ -60,6 +67,7 @@ function manageList() {
 function startNewGame() {
     $("#newGame-submit").click(function () {
         var username = $('.active').html();
+
         window.location = "game.html";
     });
 }

@@ -13,16 +13,22 @@ exports.start = function (io) {
 
         client.on('username', function (data) {
             clients[data.user] = client.id;
+            io.sockets.emit('refreshPlayers', sendPlayers());
             console.log(clients);
         });
 
-        var data = sendPlayers();
-        client.emit('refreshPlayers', data);
+        client.on('disconnect', function (socket) {
 
-        client.on('disconnect', function () {
-            //remover jogador da lista e mandar a lista para toda a gente de novo
-            //client.emit('refreshPlayers', data);
+            for (var key in clients) {
+                if (clients.hasOwnProperty(key) && socket.id == clients.key) {
+                    delete clients[key];
+                    break;
+                }
+            }
+
+            io.sockets.emit('refreshPlayers', sendPlayers());
             console.log('Client disconnected');
+            console.log(clients);
         });
     });
 

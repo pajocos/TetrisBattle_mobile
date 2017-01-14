@@ -20,6 +20,7 @@ $(function () {
 
 });
 
+//TODO "remember me"
 $("#login-submit").click(function (e) {
 
     var username = $('#username1').val();
