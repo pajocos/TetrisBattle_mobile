@@ -40,8 +40,17 @@ function renderCanvas() {
   for (var i = 0; i < 4; i++) {
     var x = curX + getX(curPiece, i);
     var y = curY - getY(curPiece, i);
+    g.beginPath();
+    g.strokeStyle = "black";
+    g.moveTo(x * 32, (BOARD_HEIGHT - y - 1) * 32);
+    g.lineTo(x * 32 + 32, (BOARD_HEIGHT - y - 1) * 32);
+    g.lineTo(x * 32 + 32, (BOARD_HEIGHT - y - 1) * 32 + 32);
+    g.lineTo(x * 32, (BOARD_HEIGHT - y - 1) * 32 + 32);
+    g.lineTo(x * 32, (BOARD_HEIGHT - y - 1) * 32);
+    g.stroke();
+    g.closePath();
     g.fillStyle = curPiece.color;
-    g.fillRect(x * 32, (20 - y - 1) * 32, 32, 32);
+    g.fillRect(x * 32, (BOARD_HEIGHT - y - 1) * 32, 32, 32);
   }
 
   for (var y = 0; y < 20; y++) {
@@ -62,8 +71,17 @@ function renderCanvas() {
         color = "LightSkyBlue";
       else if (shape === "MirroredLShape")
         color = "GoldenRod";
-        
-      if (shape != "NoShape"){
+
+      if (shape != "NoShape") {
+        g.beginPath();
+        g.strokeStyle = "black";
+        g.moveTo(x * 32, y * 32);
+        g.lineTo(x * 32 + 32, y * 32);
+        g.lineTo(x * 32 + 32, y * 32 + 32);
+        g.lineTo(x * 32, y * 32 + 32);
+        g.lineTo(x * 32, y * 32);
+        g.stroke();
+        g.closePath();
         g.fillStyle = color;
         g.fillRect(x * 32, y * 32, 32, 32);
       }

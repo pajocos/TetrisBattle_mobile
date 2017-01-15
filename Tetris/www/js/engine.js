@@ -161,7 +161,6 @@ function removeFullLines() {
 
   if (numFullLines > 0) {
     isFallingFinished = true;
-    setShape(curPiece, "NoShape");
     renderCanvas();
   }
 }
