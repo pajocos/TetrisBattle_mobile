@@ -5,7 +5,7 @@
  */
 
 var clients = {};
-var currentGames = {};
+var clients_playing = {};
 
 exports.start = function (io) {
 
@@ -18,25 +18,28 @@ exports.start = function (io) {
             console.log(clients);
         });
 
-        //user é quem vai receber o pedido, oponente é quem faz o pedido inicial
         client.on('new_game_request', function (data) {
-            console.log(data.initial_user + ' challenge to: ' + data.user);
-
-            //send request to player
             io.to(clients[data.user]).emit('new_game', {user: data.user, initial_user: data.initial_user});
         });
 
         client.on('new_game_reply', function (data) {
-            console.log(data);
-            //se sim, gerar key aleatoria e adicionar jogo aos jogos existentes com esta key, mandar esta key aos players e começar o jogo com troca de linhas
+
             if (data.confirmation == 'yes') {
-                //enviar para os dois jogadores algo para eles começarem o jogo
+                io.to(clients[data.initial_user]).emit('reply_to_request_game', {reply: 'yes', user: data.user});
+                io.to(clients[data.user]).emit('reply_to_request_game', {reply: 'yes', user: data.initial_user});
             }
-            //se não, mandar nega ao player que fez o pedido inicial
             else {
                 io.to(clients[data.initial_user]).emit('reply_to_request_game', {reply: 'no', user: data.user});
             }
+        });
 
+        client.on('start_playing', function (data) {
+            clients_playing[data.user] = client.id;
+            console.log(clients_playing);
+        });
+
+        client.on('send_line', function (data) {
+            //var dest_user = data.user;
         });
 
         client.on('disconnect', function (data) {
@@ -65,6 +68,3 @@ function sendPlayers() {
     console.log("players list: " + data);
     return data;
 }
-
-
-

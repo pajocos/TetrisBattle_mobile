@@ -38,12 +38,12 @@ $(function () {
 
     socket.on('reply_to_request_game', function (data) {
         if (data.reply == 'no') {
-            alert(data.user + " doesn't like you");
+            alert(data.user + " doesn't like you :(");
         }
         //começar jogo
         else {
-            //window.localStorage.setItem('opponent', username);
-            //window.location = "game.html";
+            window.localStorage.setItem('opponent', data.user);
+            window.location = "game.html";
         }
     });
 
