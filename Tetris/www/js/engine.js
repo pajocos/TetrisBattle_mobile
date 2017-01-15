@@ -104,26 +104,7 @@ function checkMove(newPiece, newX, newY) {
   curPiece = newPiece;
   curX = newX;
   curY = newY;
-
-  g.drawImage(boardImg, 0, 0);
-  for (var i = 0; i < 4; i++) {
-    var x = curX + getX(curPiece, i);
-    var y = curY - getY(curPiece, i);
-    g.fillStyle = curPiece.color;
-    g.fillRect(x * 32, (20 - y - 1) * 32, 32, 32);
-
-  }
-
-  for (var y = 0; y < 20; y++) {
-    for (var x = 0; x < 10; x++) {
-      var shape = pieceAt(x,20 - y - 1);
-      if (shape != "NoShape"){
-        g.fillStyle = color;
-        g.fillRect(x * 32, y * 32, 32, 32);
-      }
-    }
-  }
-
+  renderCanvas();
   return true;
 }
 
@@ -146,55 +127,41 @@ function pieceDropped() {
   }
 }
 
-function jump(){
-    var newY = curY;
-    while (newY > 0) {
-        if (!checkMove(curPiece, curX, newY - 1))
-            break;
-        --newY;
-    }
-    pieceDropped();
+function jump() {
+  var newY = curY;
+  while (newY > 0) {
+    if (!checkMove(curPiece, curX, newY - 1))
+      break;
+    --newY;
+  }
+  pieceDropped();
 }
 
 function removeFullLines() {
-  var lines = [];
-  for (var y = BOARD_HEIGHT - 1; y >= 0; y--) {
-    lines.push(y);
-    for (var x = 0; x < BOARD_WIDTH; x++) {
-      if (pieceAt(x, y) == "NoShape" || pieceAt(x, y) == "Trash") {
-        var index = lines.indexOf(y);
-        if (index > -1) {
-          lines.splice(index, 1);
-        }
+  var numFullLines = 0;
+
+  for (var i = BOARD_HEIGHT - 1; i >= 0; --i) {
+    var lineIsFull = true;
+
+    for (var j = 0; j < BOARD_WIDTH; ++j) {
+      if (pieceAt(j, i) == "NoShape") {
+        lineIsFull = false;
         break;
       }
     }
-  }
-  var clone = board;
-  for (var k = 0; k < lines.length; k++) {
-    clone = board;
-    console.log(lines[k]);
-    for (var y = lines[k]; y < BOARD_HEIGHT - 1; y++) {
-      for (var x = 0; x < BOARD_WIDTH; x++) {
-        board[(y * BOARD_WIDTH) + x] = clone[((y + 1) * BOARD_WIDTH) + x];
+
+    if (lineIsFull) {
+      ++numFullLines;
+      for (var k = i; k < BOARD_HEIGHT - 1; ++k) {
+        for (var j = 0; j < BOARD_WIDTH; ++j)
+          board[(k * BOARD_WIDTH) + j] = pieceAt(j, k + 1);
       }
     }
   }
 
-  if (lines.length > 0) {
-    var numLines = lines.length;
-    /*  Thread sendLineT = new Thread(new Runnable() {
-
-        public void run() {
-          if (multiPlayer)
-            mainWindow.peer.sendLine(numLines, 0);
-        }
-      });
-      sendLineT.start();
-
-      score += lines.size() * lines.size() * 100;
-      mainWindow.sidePanel.scoreBar.setText(String.valueOf(score)); */
+  if (numFullLines > 0) {
     isFallingFinished = true;
     setShape(curPiece, "NoShape");
+    renderCanvas();
   }
 }
