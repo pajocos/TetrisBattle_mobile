@@ -39,8 +39,8 @@ $(function () {
     socket.on('reply_to_request_game', function (data) {
         if (data.reply == 'no') {
             alert(data.user + " doesn't like you :(");
+            window.location = "home.html";
         }
-        //começar jogo
         else {
             window.localStorage.setItem('opponent', data.user);
             window.location = "game.html";
@@ -96,6 +96,9 @@ function startNewGame() {
         var initial_user = window.localStorage.getItem('username');
         var opponent = $('.active').html();
         window.localStorage.setItem('opponent', opponent);
+
+        $('.form-group').empty();
+        $('.form-group').append('<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>');
 
         if (opponent == null) {
             alert("No opponent!");

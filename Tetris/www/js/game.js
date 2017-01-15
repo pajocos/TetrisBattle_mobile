@@ -21,3 +21,23 @@ $(function () {
         //add line to this user
     });
 });
+
+
+
+
+var canvas;
+var g;
+
+window.onload = teste();
+
+function teste() {
+
+    canvas = document.getElementById("tetris-game");
+    g = canvas.getContext("2d");
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight * 0.85;
+
+    g.fillStyle = "blue";
+    g.fillRect(0, 0, 2000, 2000);
+}

@@ -8,3 +8,24 @@ body {
 .user-controls {
     color: #fff;
 }
+
+.user-controls i {
+    margin: 10px;
+}
+
+#fix-bottom-left {
+    position: absolute;
+    bottom: 0px;
+    left: 20px;
+}
+
+#fix-bottom-right {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+}
+
+#tetris-game {
+    width:100%;
+    height:100%;
+}
