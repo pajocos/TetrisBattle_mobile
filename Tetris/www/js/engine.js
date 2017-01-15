@@ -107,13 +107,24 @@ function checkMove(newPiece, newX, newY) {
 
   console.log("CURX: " + curX + " CURY: " + curY);
 
-  for(var y = 0; y < 20; y++){
-    for (var x = 0; x < 10; x++){
-      var piece = pieceAt(x,y);
-      if(piece != "NoShape"){
-        var color = curPiece.color;
+  g.drawImage(boardImg, 0, 0);
+  for (var i = 0; i < 4; i++) {
+    var x = curX + getX(curPiece, i);
+    var y = curY - getY(curPiece, i);
+    g.fillStyle = curPiece.color;
+    g.fillRect(x * 32, (20 - y - 1) * 32, 32, 32);
+
+  /*      drawSquare(g, 0 + x * squareWidth(), boardTop
+            + (engine.BoardHeight - y - 1) * squareHeight(),
+            engine.curPiece.getShape()); */
+  }
+
+  for (var y = 0; y < 20; y++) {
+    for (var x = 0; x < 10; x++) {
+      var shape = pieceAt(x,20 - y - 1);
+      if (shape != "NoShape"){
         g.fillStyle = color;
-        g.fillRect(x*32, y*32, 32, 33);
+        g.fillRect(x * 32, y * 32, 32, 32);
       }
     }
   }
@@ -169,18 +180,18 @@ function removeFullLines() {
 
   if (lines.length > 0) {
     var numLines = lines.length;
-  /*  Thread sendLineT = new Thread(new Runnable() {
+    /*  Thread sendLineT = new Thread(new Runnable() {
 
-      public void run() {
-        if (multiPlayer)
-          mainWindow.peer.sendLine(numLines, 0);
-      }
-    });
-    sendLineT.start();
+        public void run() {
+          if (multiPlayer)
+            mainWindow.peer.sendLine(numLines, 0);
+        }
+      });
+      sendLineT.start();
 
-    score += lines.size() * lines.size() * 100;
-    mainWindow.sidePanel.scoreBar.setText(String.valueOf(score)); */
+      score += lines.size() * lines.size() * 100;
+      mainWindow.sidePanel.scoreBar.setText(String.valueOf(score)); */
     isFallingFinished = true;
-    curPiece.setShape("NoShape");
+    setShape(curPiece, "NoShape");
   }
 }

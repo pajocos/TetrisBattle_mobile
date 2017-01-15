@@ -86,12 +86,12 @@ function setShape(piece, shape) {
   piece.pieceShape = shape;
 }
 
-function setX(index, x) {
-  coords[index][0] = x;
+function setX(piece,index, x) {
+  piece.coords[index][0] = x;
 }
 
-function setY(index, y) {
-  coords[index][1] = y;
+function setY(piece,index, y) {
+  piece.coords[index][1] = y;
 }
 
 function getX(piece, index) {
@@ -128,16 +128,17 @@ function minY(piece) {
   return m;
 }
 
-function rotateRight() {
-  if (pieceShape == "SquareShape")
+function rotateRight(piece) {
+  if (piece.pieceShape == "SquareShape")
     return this;
 
   var result = new Shape();
-  result.pieceShape = pieceShape;
+  result.pieceShape = piece.pieceShape;
+  result.color = piece.color;
 
   for (var i = 0; i < 4; ++i) {
-    result.setX(i, -y(i));
-    result.setY(i, x(i));
+    setX(result, i, -getY(piece, i));
+    setY(result, i, getX(piece, i));
   }
   return result;
 }

@@ -28,7 +28,6 @@ function onAllAssetsLoaded()
     document.addEventListener('keydown', keydownHandler);
 
     var engine = new Engine();
-
     renderCanvas();
 }
 
@@ -38,10 +37,21 @@ function renderCanvas() {
 
 function keydownHandler(e)
 {
-    if (e.keyCode === 13)  // ENTER
+    if (e.keyCode === 13)  // NUMPAD ENTER
     {
       start();
     }
+    else if (e.keyCode === 37) // left
+    {
+      checkMove(curPiece, curX - 1, curY);
+    }
     else if (e.keyCode === 38) // up
-    {}
+    {
+      /*curPiece = rotateRight(curPiece);
+      checkMove(curPiece, curX, curY); */
+    }
+    else if (e.keyCode === 39) // right
+    {
+      checkMove(curPiece, curX + 1, curY);
+    }
 }
