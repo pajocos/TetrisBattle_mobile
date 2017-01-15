@@ -2,9 +2,11 @@
  * Created by paulo on 11-Jan-17.
  */
 
+var socket;
+
 $(function () {
 
-    var socket = io.connect('http://' + URL + ':3000');
+    socket = io.connect('http://' + URL + ':3000');
     var username = window.localStorage.getItem('username');
 
     socket.on('connect', function () {
@@ -24,6 +26,25 @@ $(function () {
             }
         }
         manageList();
+    });
+
+    socket.on('new_game', function (data) {
+        if (confirm('Start game with ' + data.initial_user + '?')) {
+            socket.emit('new_game_reply', {confirmation: 'yes', user: data.user, initial_user: data.initial_user});
+        } else {
+            socket.emit('new_game_reply', {confirmation: 'no', user: data.user, initial_user: data.initial_user});
+        }
+    });
+
+    socket.on('reply_to_request_game', function (data) {
+        if (data.reply == 'no') {
+            alert(data.user + " doesn't like you");
+        }
+        //começar jogo
+        else {
+            //window.localStorage.setItem('opponent', username);
+            //window.location = "game.html";
+        }
     });
 
     updateLabels();
@@ -72,13 +93,15 @@ function manageList() {
 
 function startNewGame() {
     $("#newGame-submit").click(function () {
-        var username = $('.active').html();
-        if (username == null) {
+        var initial_user = window.localStorage.getItem('username');
+        var opponent = $('.active').html();
+        window.localStorage.setItem('opponent', opponent);
+
+        if (opponent == null) {
             alert("No opponent!");
         }
         else {
-            window.localStorage.setItem('opponent', username);
-            window.location = "game.html";
+            socket.emit('new_game_request', {user: opponent, initial_user: initial_user});
         }
     });
 }

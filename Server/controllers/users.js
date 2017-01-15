@@ -18,12 +18,12 @@ exports.start = function (io) {
             console.log(clients);
         });
 
+        //user é quem vai receber o pedido, oponente é quem faz o pedido inicial
         client.on('new_game_request', function (data) {
-            console.log('new game request: ' + data.user);
-            var opponent = data.user;
+            console.log(data.initial_user + ' challenge to: ' + data.user);
 
             //send request to player
-            io.sockets.socket(clients[opponent]).emit('new_game', {user: data.opponent});
+            io.to(clients[data.user]).emit('new_game', {user: data.user, initial_user: data.initial_user});
         });
 
         client.on('new_game_reply', function (data) {
@@ -34,7 +34,7 @@ exports.start = function (io) {
             }
             //se não, mandar nega ao player que fez o pedido inicial
             else {
-                io.sockets.socket(clients[data.user]).emit('reply_to_request_game', {reply: 'no', user: data.opponent});
+                io.to(clients[data.initial_user]).emit('reply_to_request_game', {reply: 'no', user: data.user});
             }
 
         });
