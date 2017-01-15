@@ -32,7 +32,7 @@ function start() {
 
 function startAnimationTimer() {
   if (animationInterval === null) {
-    animationInterval = setInterval(move, 2500);
+    animationInterval = setInterval(move, 300);
   }
 }
 
@@ -146,22 +146,14 @@ function pieceDropped() {
   }
 }
 
-function getLastY(x){
-  for(var y = 0; y < 20; y++){
-    if (pieceAt(x,y) != "NoShape")
-      console.log("X: " + x + " Y: " + y + " Piece: " + pieceAt(x,y));
-      break;
-  }
-  console.log("RETURN: " + y);
-  return y;
-}
-
-function jump(curPiece){
-  for (var i = 0; i < 4; i++) {
-    var x = curX + getX(curPiece, i);
-    var y = getLastY(x);
-    console.log(y);
-  }
+function jump(){
+    var newY = curY;
+    while (newY > 0) {
+        if (!checkMove(curPiece, curX, newY - 1))
+            break;
+        --newY;
+    }
+    pieceDropped();
 }
 
 function removeFullLines() {

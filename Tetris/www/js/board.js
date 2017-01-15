@@ -43,7 +43,7 @@ function keydownHandler(e)
     }
     else if (e.keyCode === 32) // spacebar
     {
-      jump(curPiece);
+      jump();
     }
     else if (e.keyCode === 37) // left
     {
