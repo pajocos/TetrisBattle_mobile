@@ -41,14 +41,18 @@ function keydownHandler(e)
     {
       start();
     }
+    else if (e.keyCode === 32) // spacebar
+    {
+      jump(curPiece);
+    }
     else if (e.keyCode === 37) // left
     {
       checkMove(curPiece, curX - 1, curY);
     }
     else if (e.keyCode === 38) // up
     {
-      /*curPiece = rotateRight(curPiece);
-      checkMove(curPiece, curX, curY); */
+      curPiece = rotateRight(curPiece);
+      checkMove(curPiece, curX, curY);
     }
     else if (e.keyCode === 39) // right
     {

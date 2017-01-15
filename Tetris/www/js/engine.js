@@ -32,7 +32,7 @@ function start() {
 
 function startAnimationTimer() {
   if (animationInterval === null) {
-    animationInterval = setInterval(move, 500);
+    animationInterval = setInterval(move, 2500);
   }
 }
 
@@ -105,8 +105,6 @@ function checkMove(newPiece, newX, newY) {
   curX = newX;
   curY = newY;
 
-  console.log("CURX: " + curX + " CURY: " + curY);
-
   g.drawImage(boardImg, 0, 0);
   for (var i = 0; i < 4; i++) {
     var x = curX + getX(curPiece, i);
@@ -114,9 +112,6 @@ function checkMove(newPiece, newX, newY) {
     g.fillStyle = curPiece.color;
     g.fillRect(x * 32, (20 - y - 1) * 32, 32, 32);
 
-  /*      drawSquare(g, 0 + x * squareWidth(), boardTop
-            + (engine.BoardHeight - y - 1) * squareHeight(),
-            engine.curPiece.getShape()); */
   }
 
   for (var y = 0; y < 20; y++) {
@@ -141,8 +136,6 @@ function pieceDropped() {
   for (var i = 0; i < 4; i++) {
     var x = curX + getX(curPiece, i);
     var y = curY - getY(curPiece, i);
-    console.log("X: " + x + " Y: " + y);
-    console.log((y * BOARD_WIDTH) + x);
     board[(y * BOARD_WIDTH) + x] = curPiece.pieceShape;
   }
 
@@ -150,6 +143,24 @@ function pieceDropped() {
 
   if (!isFallingFinished) {
     newPiece();
+  }
+}
+
+function getLastY(x){
+  for(var y = 0; y < 20; y++){
+    if (pieceAt(x,y) != "NoShape")
+      console.log("X: " + x + " Y: " + y + " Piece: " + pieceAt(x,y));
+      break;
+  }
+  console.log("RETURN: " + y);
+  return y;
+}
+
+function jump(curPiece){
+  for (var i = 0; i < 4; i++) {
+    var x = curX + getX(curPiece, i);
+    var y = getLastY(x);
+    console.log(y);
   }
 }
 

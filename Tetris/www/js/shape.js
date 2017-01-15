@@ -130,7 +130,7 @@ function minY(piece) {
 
 function rotateRight(piece) {
   if (piece.pieceShape == "SquareShape")
-    return this;
+    return piece;
 
   var result = new Shape();
   result.pieceShape = piece.pieceShape;
