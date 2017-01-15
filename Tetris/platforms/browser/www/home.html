@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src *; style-src 'self' http://* 'unsafe-inline'; script-src 'self' http://* ws://* 'unsafe-inline' 'unsafe-eval'; connect-src http://192.168.1.25:* ws://192.168.1.25:*"/>
+
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport"
+          content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <link rel="stylesheet" type="text/css" href="css/home.css">
+
+    <title>Home</title>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="row">
+        <img src="img/logo_text.png" class="img-responsive logo">
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 panel">
+            <h1 id="username"></h1>
+            <h3><b>High Score: </b><span id="high_score"></span></h3>
+            <h3><b>Level: </b><span id="user_level"></span></h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="panel">
+            <div class="col-lg-12">
+                <ul class="list-group" id="loggedPlayers">
+                </ul>
+            </div>
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <input type="submit" name="newGame-submit" id="newGame-submit"
+                           tabindex="4" class="form-control btn btn-newGame"
+                           value="Start New Game">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="js/socket.io.min.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/home.js"></script>
+
+</body>
+</html>

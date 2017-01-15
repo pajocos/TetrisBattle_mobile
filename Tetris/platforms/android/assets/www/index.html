@@ -2,6 +2,12 @@
 <html>
 <head>
 
+    <script>
+        if (window.localStorage.getItem('username')) {
+            window.location = "home.html";
+        }
+    </script>
+
     <meta http-equiv="Content-Security-Policy"
           content="default-src *; style-src 'self' http://* 'unsafe-inline'; script-src 'self' http://* 'unsafe-inline' 'unsafe-eval'; connect-src http://192.168.1.25:*"/>
 
@@ -42,7 +48,7 @@
                                            class="form-control" placeholder="Password">
                                 </div>
                                 <div class="col-xs-6 form-group pull-left checkbox">
-                                    <input id="checkbox1" type="checkbox" name="remember">
+                                    <input id="checkbox1" type="checkbox" name="remember" checked>
                                     <label for="checkbox1">Remember Me</label>
                                 </div>
                                 <div class="col-xs-6 form-group pull-right">

@@ -2,9 +2,8 @@
  * Created by paulo on 22/12/2016.
  */
 
-var URL = "192.168.1.25";
-
 $(function () {
+
     $('#login-form-link').click(function (e) {
         $("#login-form").delay(100).fadeIn(100);
         $("#register-form").fadeOut(100);
@@ -28,7 +27,8 @@ $("#login-submit").click(function (e) {
     var password = $('#password1').val();
     var rememberMe = $('#checkbox1').val();
 
-    GLOBAL_USERNAME = username;
+    var storage = window.localStorage;
+    storage.setItem('username', username);
 
     $.ajax({
         type: "POST",
@@ -37,7 +37,10 @@ $("#login-submit").click(function (e) {
         data: $.param({username: username, password: password}),
         dataType: "text",
         success: function () {
-            alert(GLOBAL_USERNAME);
+            if (rememberMe == 'on') {
+                storage.setItem('remember', true);
+                //In future, put webtoken for authenticity
+            }
             window.location = "home.html";
         },
         error: function (result) {

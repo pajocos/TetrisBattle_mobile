@@ -2,14 +2,16 @@
 
 body {
     padding-top: 10%;
-    background: #F7F7F7;
+    background-color: rgba(0, 68, 66, 0.85);
     color: #666666;
     font-family: 'Roboto', sans-serif;
     font-weight: 100;
 }
 
-body {
-    background-color: rgba(0, 68, 66, 0.85);
+.logo {
+    width: 90%;
+    height: auto;
+    margin: 5% auto;
 }
 
 .panel {

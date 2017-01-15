@@ -3,6 +3,7 @@
  */
 
 $(function () {
+
     $('#login-form-link').click(function (e) {
         $("#login-form").delay(100).fadeIn(100);
         $("#register-form").fadeOut(100);
@@ -20,7 +21,6 @@ $(function () {
 
 });
 
-//TODO "remember me"
 $("#login-submit").click(function (e) {
 
     var username = $('#username1').val();
@@ -29,10 +29,6 @@ $("#login-submit").click(function (e) {
 
     var storage = window.localStorage;
     storage.setItem('username', username);
-    if (rememberMe == 'on') {
-        storage.setItem('remember', true);
-        storage.setItem('password', password);
-    }
 
     $.ajax({
         type: "POST",
@@ -41,6 +37,10 @@ $("#login-submit").click(function (e) {
         data: $.param({username: username, password: password}),
         dataType: "text",
         success: function () {
+            if (rememberMe == 'on') {
+                storage.setItem('remember', true);
+                //In future, put webtoken for authenticity
+            }
             window.location = "home.html";
         },
         error: function (result) {
