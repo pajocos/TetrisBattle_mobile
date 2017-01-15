@@ -13,13 +13,14 @@ $(function () {
 
     socket.on('refreshPlayers', function (playersList) {
         $('#loggedPlayers').empty();
+        var index = playersList.indexOf(username);
+        playersList.splice(index, 1);
         if (playersList.length == 0) {
             $('#loggedPlayers').html('<h1>No available players :(')
         }
         else {
             for (var i = 0; i < playersList.length; i++) {
-                if (playersList[i] != username)
-                    $('#loggedPlayers').append('<li class="list-group-item">' + playersList[i] + '</li>')
+                $('#loggedPlayers').append('<li class="list-group-item">' + playersList[i] + '</li>')
             }
         }
         manageList();
@@ -27,6 +28,11 @@ $(function () {
 
     updateLabels();
     startNewGame();
+});
+
+$('#settings').click(function (e) {
+    window.location.assign("settings.html");
+    e.preventDefault();
 });
 
 function updateLabels() {
@@ -67,8 +73,13 @@ function manageList() {
 function startNewGame() {
     $("#newGame-submit").click(function () {
         var username = $('.active').html();
-
-        window.location = "game.html";
+        if (username == null) {
+            alert("No opponent!");
+        }
+        else {
+            window.localStorage.setItem('opponent', username);
+            window.location = "game.html";
+        }
     });
 }
 

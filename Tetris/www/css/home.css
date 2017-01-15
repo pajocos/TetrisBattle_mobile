@@ -10,7 +10,7 @@ body {
     margin: 5% 10%;
     padding-top: 5%;
     border-radius: 10px;
-    color: #848c9d;
+    color: #666666;
     background-color: white;
     text-align: center;
 }
@@ -49,6 +49,10 @@ body {
 
 .list-group-item {
     padding: 5px 15px;
+}
+
+#settings {
+    text-align: right;
 }
 
 
