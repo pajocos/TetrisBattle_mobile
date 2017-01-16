@@ -23,38 +23,7 @@ $(function () {
     });
 });
 
+
 function sendLine(numLines) {
     socket.emit('send_line', {user: opponent, num: numLines});
-}
-
-$('#left').click(function () {
-    alert('left pressed');
-});
-
-$('#right').click(function () {
-    alert('right pressed');
-});
-$('#drop-down').click(function () {
-    alert('drop-down pressed');
-});
-
-$('#rotate').click(function () {
-    alert('rotate pressed');
-});
-
-var canvas;
-var g;
-
-window.onload = teste();
-
-function teste() {
-
-    canvas = document.getElementById("tetris-game");
-    g = canvas.getContext("2d");
-
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight * 0.85;
-
-    g.fillStyle = "blue";
-    g.fillRect(0, 0, 2000, 2000);
 }
