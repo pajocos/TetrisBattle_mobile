@@ -24,14 +24,17 @@ var app = {
         document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
     },
     onDeviceReady: function () {
-        /*var myMedia;
-        var loop = function (status) {
-            if (status === Media.MEDIA_STOPPED) {
-                myMedia.play();
-            }
-        };
-        myMedia = new Media("../img/background_sound.mp3", null, null, loop);
-        myMedia.play();*/
+        if (window.localStorage.getItem('background_sound') == true || window.localStorage.getItem('background_sound') == null) {
+            /*var media = new Media('img/background_sound.mp3',
+             function () {
+             alert("playAudio():Audio Success");
+             },
+             function (err) {
+             alert("playAudio():Audio Error: " + err);
+             }
+             );
+             media.play();*/
+        }
     }
 };
 
