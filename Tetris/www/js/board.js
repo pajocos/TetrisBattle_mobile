@@ -22,8 +22,8 @@ purple.src = "../img/Purple.jpg";
 var red = new Image();
 red.src = "../img/Red.jpg";
 
-var white = new Image();
-white.src = "../img/White.jpg";
+var orange = new Image();
+orange.src = "../img/Orange.jpg";
 
 var yellow = new Image();
 yellow.src = "../img/Yellow.jpg";
@@ -91,7 +91,7 @@ function renderCanvas() {
     else if (shape === "SquareShape")
       g.drawImage(red, x * 32, (BOARD_HEIGHT - y - 1) * 32);
     else if (shape === "LShape")
-      g.drawImage(white, x * 32, (BOARD_HEIGHT - y - 1) * 32);
+      g.drawImage(orange, x * 32, (BOARD_HEIGHT - y - 1) * 32);
     else if (shape === "MirroredLShape")
       g.drawImage(yellow,x * 32, (BOARD_HEIGHT - y - 1) * 32);
   }
@@ -111,7 +111,7 @@ function renderCanvas() {
       else if (shape === "SquareShape")
         g.drawImage(red, x * 32, y * 32);
       else if (shape === "LShape")
-        g.drawImage(white, x * 32, y * 32);
+        g.drawImage(orange, x * 32, y * 32);
       else if (shape === "MirroredLShape")
         g.drawImage(yellow, x * 32, y * 32);
 
