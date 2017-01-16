@@ -39,7 +39,10 @@ exports.start = function (io) {
         });
 
         client.on('send_line', function (data) {
-            //var dest_user = data.user;
+            var dest_user = data.user;
+            var numLines = data.num;
+
+            io.to(clients_playing[dest_user]).emit('receive_line', {num: numLines});
         });
 
         client.on('disconnect', function (data) {
