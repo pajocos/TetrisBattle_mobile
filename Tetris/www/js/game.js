@@ -23,8 +23,24 @@ $(function () {
     });
 });
 
+function sendLine(numLines) {
+    socket.emit('send_line', {user: opponent, num: numLines});
+}
 
+$('#left').click(function () {
+    alert('left pressed');
+});
 
+$('#right').click(function () {
+    alert('right pressed');
+});
+$('#drop-down').click(function () {
+    alert('drop-down pressed');
+});
+
+$('#rotate').click(function () {
+    alert('rotate pressed');
+});
 
 var canvas;
 var g;

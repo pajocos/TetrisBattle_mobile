@@ -13,6 +13,7 @@
 
     <plugin name="cordova-plugin-whitelist" spec="1"/>
     <plugin name="cordova-plugin-splashscreen" source="npm"/>
+    <plugin name="cordova-plugin-media" source="npm"/>
 
     <allow-navigation href="*"/>
     <allow-intent href="http://*/*"/>
