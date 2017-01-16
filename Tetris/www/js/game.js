@@ -2,6 +2,7 @@
  * Created by paulo on 12-Jan-17.
  */
 
+var URL = "192.168.1.25";
 var socket;
 var opponent;
 var key;
