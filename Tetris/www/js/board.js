@@ -7,6 +7,27 @@ var g;
 var boardImg = new Image();
 boardImg.src = "../img/board.png";
 
+var darkBlue = new Image();
+darkBlue.src = "../img/DarkBlue.jpg";
+
+var green = new Image();
+green.src = "../img/Green.jpg";
+
+var lightBlue = new Image();
+lightBlue.src = "../img/LightBlue.jpg";
+
+var purple = new Image();
+purple.src = "../img/Purple.jpg";
+
+var red = new Image();
+red.src = "../img/Red.jpg";
+
+var white = new Image();
+white.src = "../img/White.jpg";
+
+var yellow = new Image();
+yellow.src = "../img/Yellow.jpg";
+
 window.onload = onAllAssetsLoaded;
 document.write("<div id='loadingMessage'>Loading...</div>");
 
@@ -37,6 +58,15 @@ function drawBackground() {
 
 function renderCanvas() {
   g.drawImage(boardImg, 0, 0);
+
+  for (var i = 0; i < 4; i++) {
+    var x = shadowX + getX(curPiece, i);
+    var y = shadowY - getY(curPiece, i);
+    console.log("ShadowX: " + x + " ShadowY: " + y);
+    g.fillStyle = "black";
+    g.fillRect(x * 32, (BOARD_HEIGHT - y - 1) * 32, 32, 32);
+  }
+
   for (var i = 0; i < 4; i++) {
     var x = curX + getX(curPiece, i);
     var y = curY - getY(curPiece, i);
@@ -49,8 +79,21 @@ function renderCanvas() {
     g.lineTo(x * 32, (BOARD_HEIGHT - y - 1) * 32);
     g.stroke();
     g.closePath();
-    g.fillStyle = curPiece.color;
-    g.fillRect(x * 32, (BOARD_HEIGHT - y - 1) * 32, 32, 32);
+    var shape = curPiece.pieceShape;
+    if (shape === "ZShape")
+      g.drawImage(darkBlue, x * 32, (BOARD_HEIGHT - y - 1) * 32);
+    else if (shape === "SShape")
+      g.drawImage(green, x * 32, (BOARD_HEIGHT - y - 1) * 32);
+    else if (shape === "LineShape")
+      g.drawImage(lightBlue, x * 32, (BOARD_HEIGHT - y - 1) * 32);
+    else if (shape === "TShape")
+      g.drawImage(purple,x * 32, (BOARD_HEIGHT - y - 1) * 32);
+    else if (shape === "SquareShape")
+      g.drawImage(red, x * 32, (BOARD_HEIGHT - y - 1) * 32);
+    else if (shape === "LShape")
+      g.drawImage(white, x * 32, (BOARD_HEIGHT - y - 1) * 32);
+    else if (shape === "MirroredLShape")
+      g.drawImage(yellow,x * 32, (BOARD_HEIGHT - y - 1) * 32);
   }
 
   for (var y = 0; y < 20; y++) {
@@ -58,19 +101,19 @@ function renderCanvas() {
       var shape = pieceAt(x, BOARD_HEIGHT - y - 1);
       var color;
       if (shape === "ZShape")
-        color = "DarkSalmon";
+        g.drawImage(darkBlue, x * 32, y * 32);
       else if (shape === "SShape")
-        color = "LimeGreen";
+        g.drawImage(green, x * 32, y * 32);
       else if (shape === "LineShape")
-        color = "MediumSlateBlue";
+        g.drawImage(lightBlue, x * 32, y * 32);
       else if (shape === "TShape")
-        color = "DarkKhaki";
+        g.drawImage(purple,x * 32, y * 32);
       else if (shape === "SquareShape")
-        color = "IndianRed";
+        g.drawImage(red, x * 32, y * 32);
       else if (shape === "LShape")
-        color = "LightSkyBlue";
+        g.drawImage(white, x * 32, y * 32);
       else if (shape === "MirroredLShape")
-        color = "GoldenRod";
+        g.drawImage(yellow, x * 32, y * 32);
 
       if (shape != "NoShape") {
         g.beginPath();
@@ -82,8 +125,6 @@ function renderCanvas() {
         g.lineTo(x * 32, y * 32);
         g.stroke();
         g.closePath();
-        g.fillStyle = color;
-        g.fillRect(x * 32, y * 32, 32, 32);
       }
     }
   }
@@ -106,5 +147,8 @@ function keydownHandler(e) {
   } else if (e.keyCode === 39) // right
   {
     checkMove(curPiece, curX + 1, curY);
+  } else if (e.keyCode === 40) // down
+  {
+    checkMove(curPiece, curX, curY - 1);
   }
 }

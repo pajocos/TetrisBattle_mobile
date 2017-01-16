@@ -7,6 +7,9 @@ var score;
 var curX = 0;
 var curY = 0;
 
+var shadowX;
+var shadowY;
+
 var animationInterval = null;
 
 var BOARD_WIDTH = 10;
@@ -104,6 +107,8 @@ function checkMove(newPiece, newX, newY) {
   curPiece = newPiece;
   curX = newX;
   curY = newY;
+  shadowX = newX;
+  shadow();
   renderCanvas();
   return true;
 }
@@ -135,6 +140,27 @@ function jump() {
     --newY;
   }
   pieceDropped();
+}
+
+function posibleMove(newPiece, newX, newY) {
+  for (var i = 0; i < 4; i++) {
+    var x = newX + getX(newPiece, i);
+    var y = newY - getY(newPiece, i);
+    if (x < 0 || x >= BOARD_WIDTH || y < 0 || y >= BOARD_HEIGHT)
+      return false;
+    if (pieceAt(x, y) != "NoShape")
+      return false;
+  }
+  return true;
+}
+
+function shadow() {
+  shadowY = curY;
+  while (shadowY > 0) {
+    if (!posibleMove(curPiece, shadowX, shadowY - 1))
+      break;
+    --shadowY;
+  }
 }
 
 function removeFullLines() {
