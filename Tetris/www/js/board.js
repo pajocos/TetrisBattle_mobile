@@ -28,6 +28,9 @@ orange.src = "../img/Orange.jpg";
 var yellow = new Image();
 yellow.src = "../img/Yellow.jpg";
 
+var trash = new Image();
+trash.src = "../img/Trash.jpg";
+
 window.onload = onAllAssetsLoaded;
 document.write("<div id='loadingMessage'>Loading...</div>");
 
@@ -62,7 +65,6 @@ function renderCanvas() {
   for (var i = 0; i < 4; i++) {
     var x = shadowX + getX(curPiece, i);
     var y = shadowY - getY(curPiece, i);
-    console.log("ShadowX: " + x + " ShadowY: " + y);
     g.fillStyle = "black";
     g.fillRect(x * 32, (BOARD_HEIGHT - y - 1) * 32, 32, 32);
   }
@@ -114,6 +116,8 @@ function renderCanvas() {
         g.drawImage(orange, x * 32, y * 32);
       else if (shape === "MirroredLShape")
         g.drawImage(yellow, x * 32, y * 32);
+      else if (shape === "Trash")
+        g.drawImage(trash, x * 32, y * 32);
 
       if (shape != "NoShape") {
         g.beginPath();
@@ -150,5 +154,7 @@ function keydownHandler(e) {
   } else if (e.keyCode === 40) // down
   {
     checkMove(curPiece, curX, curY - 1);
+  } else if (e.keyCode === 8){
+    addTrash();
   }
 }

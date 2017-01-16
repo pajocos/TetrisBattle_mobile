@@ -10,6 +10,8 @@ var curY = 0;
 var shadowX;
 var shadowY;
 
+var points = 0;
+
 var animationInterval = null;
 
 var BOARD_WIDTH = 10;
@@ -62,9 +64,6 @@ function newPiece() {
   curPiece = nextPiece;
   nextPiece = new Shape();
   setRandomShape(nextPiece);
-  //	mainWindow.sidePanel.nextPieceG.nextPiece = nextPiece;
-
-  //  mainWindow.sidePanel.nextPieceG.repaint();
 
   curX = BOARD_WIDTH / 2;
   curY = BOARD_HEIGHT - 1 + minY(curPiece);
@@ -74,23 +73,8 @@ function newPiece() {
     clearInterval(animationInterval);
     isStarted = false;
 
-    /*    if (multiPlayer)
-          mainWindow.peer.sendGameOver(0);
-        else
-          mainWindow.client.sendScore(
-            mainWindow.sidePanel.txtUsername.getText(), score,
-            false);
-     */
-
-    /*    JOptionPane.showMessageDialog(null, "Game Over " +
-          mainWindow.engine.score + " points!\n\n" +
-          mainWindow.client.getScores(multiPlayer));
-        mainWindow.sidePanel.scoreBar.setText("game over");
-        if (!multiPlayer)
-          mainWindow.twitter.postToTwitter(score); */
     clearBoard();
     setShape(curPiece, "NoShape");
-    //    mainWindow.sidePanel.showPlayerList();
   }
 }
 
@@ -163,6 +147,22 @@ function shadow() {
   }
 }
 
+function addTrash() {
+  var clone = board;
+  for (var y = BOARD_HEIGHT - 1; y > 0; y--) {
+    for (var x = 0; x < BOARD_WIDTH; x++) {
+
+      board[(y * BOARD_WIDTH) + x] = clone[((y - 1) * BOARD_WIDTH) + x];
+
+    }
+  }
+
+  for (var x = 0; x < BOARD_WIDTH; x++) {
+    board[x] = "Trash";
+  }
+
+}
+
 function removeFullLines() {
   var numFullLines = 0;
 
@@ -170,7 +170,7 @@ function removeFullLines() {
     var lineIsFull = true;
 
     for (var j = 0; j < BOARD_WIDTH; ++j) {
-      if (pieceAt(j, i) == "NoShape") {
+      if (pieceAt(j, i) == "NoShape" || pieceAt(j, i) == "Trash") {
         lineIsFull = false;
         break;
       }
@@ -186,6 +186,7 @@ function removeFullLines() {
   }
 
   if (numFullLines > 0) {
+    points += Math.pow(2, numFullLines);
     isFallingFinished = true;
     renderCanvas();
   }
