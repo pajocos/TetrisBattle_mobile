@@ -5,31 +5,31 @@ var canvas;
 var g;
 
 var boardImg = new Image();
-boardImg.src = "../img/board.png";
+boardImg.src = "img/board.png";
 
 var darkBlue = new Image();
-darkBlue.src = "../img/DarkBlue.jpg";
+darkBlue.src = "img/DarkBlue.jpg";
 
 var green = new Image();
-green.src = "../img/Green.jpg";
+green.src = "img/Green.jpg";
 
 var lightBlue = new Image();
-lightBlue.src = "../img/LightBlue.jpg";
+lightBlue.src = "img/LightBlue.jpg";
 
 var purple = new Image();
-purple.src = "../img/Purple.jpg";
+purple.src = "img/Purple.jpg";
 
 var red = new Image();
-red.src = "../img/Red.jpg";
+red.src = "img/Red.jpg";
 
 var orange = new Image();
-orange.src = "../img/Orange.jpg";
+orange.src = "img/Orange.jpg";
 
 var yellow = new Image();
-yellow.src = "../img/Yellow.jpg";
+yellow.src = "img/Yellow.jpg";
 
 var trash = new Image();
-trash.src = "../img/Trash.jpg";
+trash.src = "img/Trash.jpg";
 
 function game() {
 
