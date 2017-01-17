@@ -188,5 +188,5 @@ $('#music').change(function () {
 });*/
 
 $('#top').click(function () {
-    navigator.notification.alert('cenas cenas', null, 'About', 'Exit');
+    navigator.notification.alert('Game developed within the scope of Mobile Game Development.\nFaculty of Physics and Applied Informatics 2017, Lodz, Poland\n\nAuthors\n - Joao Morgado\n - Paulo Costa\n\n"You talked too much" by Anonymous', null, 'About', 'Close');
 });

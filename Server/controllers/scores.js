@@ -10,7 +10,7 @@ exports.updateHighScore = function (req, res) {
     db.updateHighScore(user, score, function (result) {
         if (result)
             res.sendStatus(200);
-        elses
+        else
             res.sendStatus(401);
     })
 }

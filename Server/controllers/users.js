@@ -10,12 +10,11 @@ var clients_playing = {};
 exports.start = function (io) {
 
     io.sockets.on('connection', function (client) {
-        console.log('Client connected');
 
         client.on('username', function (data) {
             clients[data.user] = client.id;
             io.sockets.emit('refreshPlayers', sendPlayers());
-            console.log(clients);
+            console.log('Client connected: ' + JSON.stringify(clients));
         });
 
         client.on('new_game_request', function (data) {
@@ -35,22 +34,18 @@ exports.start = function (io) {
 
         client.on('start_playing', function (data) {
             clients_playing[data.user] = client.id;
-            console.log('clients playing: ' + JSON.stringify(clients_playing));
+            console.log('Clients playing: ' + JSON.stringify(clients_playing));
         });
 
         client.on('send_line', function (data) {
             var dest_user = data.user;
             var numLines = data.num;
 
-            console.log(dest_user + " " + numLines);
-
-            console.log(clients_playing[dest_user]);
-
             io.to(clients_playing[dest_user]).emit('receive_line', {num: numLines});
         });
 
-        client.on('teste', function (data) {
-            console.log(data);
+        client.on('game_over', function (data) {
+            io.to(clients_playing[data.user]).emit('lost_game', {});
         });
 
         client.on('disconnect', function (data) {
@@ -63,8 +58,7 @@ exports.start = function (io) {
             }
 
             io.sockets.emit('refreshPlayers', sendPlayers());
-            console.log('Client disconnected');
-            console.log(clients);
+            console.log('Client disconnected: ' + JSON.stringify(clients));
         });
     });
 }
@@ -76,6 +70,5 @@ function sendPlayers() {
             data.push(key);
         }
     }
-    console.log("players list: " + data);
     return data;
 }
