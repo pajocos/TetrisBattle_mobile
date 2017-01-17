@@ -4,18 +4,37 @@
 
 var socket;
 var sound_ButtonUp;
+var background_sound;
 var URL = "188.166.171.219";
 
 var app = {
     initialize: function () {
         document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
+        document.addEventListener('backbutton', this.backButton.bind(this), false);
+        document.addEventListener('pause', this.pause.bind(this), false);
+        document.addEventListener('resume', this.resume.bind(this), false);
     },
     onDeviceReady: function () {
         playMusic();
 
         sound_ButtonUp = new Media('/android_asset/www/img/sounds/SFX_ButtonUp.wav');
         sound_ButtonUp.setVolume(1.0);
+    },
+    backButton: function (e) {
+        e.preventDefault();
+        navigator.notification.confirm("Are you sure you want to exit?", function (button) {
+            if (button == 1) {
+                navigator.app.exitApp();
+            }
+        }, "Confirmation", "Yes,No");
+    },
+    pause: function () {
+        background_sound.setVolume('0.0');
+    },
+    resume: function () {
+        background_sound.setVolume('0.4');
     }
+
 };
 
 app.initialize();
@@ -45,11 +64,13 @@ $(function () {
     });
 
     socket.on('new_game', function (data) {
-        if (confirm('Start game with ' + data.initial_user + '?')) {
-            socket.emit('new_game_reply', {confirmation: 'yes', user: data.user, initial_user: data.initial_user});
-        } else {
-            socket.emit('new_game_reply', {confirmation: 'no', user: data.user, initial_user: data.initial_user});
-        }
+        navigator.notification.confirm("Start game with " + data.initial_user + "?", function (button) {
+            if (button == 1) {
+                socket.emit('new_game_reply', {confirmation: 'yes', user: data.user, initial_user: data.initial_user});
+            } else {
+                socket.emit('new_game_reply', {confirmation: 'no', user: data.user, initial_user: data.initial_user});
+            }
+        }, "Confirmation", "Yes,No");
     });
 
     socket.on('reply_to_request_game', function (data) {
@@ -134,13 +155,13 @@ function startNewGame() {
 
 function playMusic() {
     //if (window.localStorage.getItem('background_sound') == true) {
-    var media = new Media('/android_asset/www/img/sounds/sound_home.mp3', null, null, function () {
+    background_sound = new Media('/android_asset/www/img/sounds/sound_home.mp3', null, null, function () {
         if (status == Media.MEDIA_STOPPED) {
-            media.play();
+            background_sound.play();
         }
     });
-    media.play();
-    media.setVolume('0.4');
+    background_sound.play();
+    background_sound.setVolume('0.4');
     // }
 }
 

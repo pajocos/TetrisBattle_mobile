@@ -15,6 +15,9 @@
         },
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "io.tetrisbattle"
+        },
+        "cordova-plugin-dialogs": {
+            "PACKAGE_NAME": "io.tetrisbattle"
         }
     },
     "dependent_plugins": {

@@ -22,6 +22,9 @@ var sound_LineClear;
 var app = {
     initialize: function () {
         document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
+        document.addEventListener('backbutton', this.backButton.bind(this), false);
+        document.addEventListener('pause', this.pause.bind(this), false);
+        document.addEventListener('resume', this.resume.bind(this), false);
     },
     onDeviceReady: function () {
         loadSoundEffects();
@@ -29,6 +32,15 @@ var app = {
         setTimeout(function () {
             playMusic();
         }, 3000);
+    },
+    backButton: function (e) {
+        e.preventDefault();
+    },
+    pause: function () {
+        background_music.setVolume('0.0');
+    },
+    resume: function () {
+        background_music.setVolume('0.4');
     }
 };
 
