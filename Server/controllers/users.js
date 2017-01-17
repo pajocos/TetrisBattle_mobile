@@ -35,14 +35,22 @@ exports.start = function (io) {
 
         client.on('start_playing', function (data) {
             clients_playing[data.user] = client.id;
-            console.log(clients_playing);
+            console.log('clients playing: ' + JSON.stringify(clients_playing));
         });
 
         client.on('send_line', function (data) {
             var dest_user = data.user;
             var numLines = data.num;
 
+            console.log(dest_user + " " + numLines);
+
+            console.log(clients_playing[dest_user]);
+
             io.to(clients_playing[dest_user]).emit('receive_line', {num: numLines});
+        });
+
+        client.on('teste', function (data) {
+            console.log(data);
         });
 
         client.on('disconnect', function (data) {

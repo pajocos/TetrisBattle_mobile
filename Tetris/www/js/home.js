@@ -5,7 +5,7 @@
 var socket;
 var sound_ButtonUp;
 var background_sound;
-var URL = "188.166.171.219";
+var URL = "192.168.1.25";
 
 var app = {
     initialize: function () {

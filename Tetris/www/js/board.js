@@ -162,29 +162,38 @@ function renderCanvas() {
 
 $(function () {
     $('#left').click(function () {
-        checkMove(curPiece, curX - 1, curY);
-        sound_PieceMoveLR.play();
+        if (isStarted) {
+            checkMove(curPiece, curX - 1, curY);
+            sound_PieceMoveLR.play();
+        }
     });
 
     $('#right').click(function () {
-        checkMove(curPiece, curX + 1, curY);
-        sound_PieceMoveLR.play();
+        if (isStarted) {
+            checkMove(curPiece, curX + 1, curY);
+            sound_PieceMoveLR.play();
+        }
     });
     $('#drop-down').click(function () {
-        jump();
-        sound_PieceDrop.play();
+        if (isStarted) {
+            jump();
+            sound_PieceDrop.play();
+        }
     });
 
     $('#rotate').click(function () {
-        curPiece = rotateRight(curPiece);
-        checkMove(curPiece, curX, curY);
-        sound_PieceRot.play();
+        if (isStarted) {
+            curPiece = rotateRight(curPiece);
+            checkMove(curPiece, curX, curY);
+            sound_PieceRot.play();
+        }
     });
 
     $('#down').click(function () {
-        checkMove(curPiece, curX, curY - 1);
-        sound_PieceDown.play();
+        if (isStarted) {
+            checkMove(curPiece, curX, curY - 1);
+            sound_PieceDown.play();
+        }
     });
-
     game();
 });
