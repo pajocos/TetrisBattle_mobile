@@ -7,14 +7,6 @@
         "is_top_level": true,
         "variables": {}
     },
-    "cordova-plugin-console": {
-        "source": {
-            "type": "registry",
-            "id": "cordova-plugin-console"
-        },
-        "is_top_level": true,
-        "variables": {}
-    },
     "cordova-plugin-splashscreen": {
         "source": {
             "type": "registry",
@@ -45,14 +37,6 @@
             "id": "cordova-plugin-compat"
         },
         "is_top_level": false,
-        "variables": {}
-    },
-    "cordova-plugin-nativeaudio": {
-        "source": {
-            "type": "registry",
-            "id": "cordova-plugin-nativeaudio"
-        },
-        "is_top_level": true,
         "variables": {}
     }
 }

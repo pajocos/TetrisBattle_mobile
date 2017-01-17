@@ -26,7 +26,6 @@ function Engine() {
 }
 
 function start() {
-    alert("Starting Game");
     isStarted = true;
     isFallingFinished = false;
     score = 0;

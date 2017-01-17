@@ -63,6 +63,7 @@ function updateLabels() {
         contentType: "application/x-www-form-urlencoded",
         url: "http://" + URL + ":3000/API/getScore?username=" + window.localStorage.getItem('username'),
         success: function (data) {
+            window.localStorage.setItem('high_score', data['high_score']);
             $('#high_score').text(data['high_score']);
         },
         error: function (result) {
@@ -75,6 +76,7 @@ function updateLabels() {
         contentType: "application/x-www-form-urlencoded",
         url: "http://" + URL + ":3000/API/getPoints?username=" + window.localStorage.getItem('username'),
         success: function (data) {
+            window.localStorage.setItem('exp_points', data['exp_points']);
             $('#user_level').text(data['exp_points']);
         },
         error: function (result) {
