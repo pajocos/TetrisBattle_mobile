@@ -2,7 +2,7 @@
  * Created by paulo on 22/12/2016.
  */
 
-var URL = "192.168.1.25";
+var URL = "188.166.171.219";
 
 $(function () {
 

@@ -1,5 +1,6 @@
 var CANVAS_WIDTH = 320;
 var CANVAS_HEIGHT = 640;
+var PIECE_SIZE;
 
 var canvas;
 var g;
@@ -39,13 +40,23 @@ function game() {
 
     canvas.width = CANVAS_WIDTH;
     canvas.height = CANVAS_HEIGHT;
+    PIECE_SIZE = CANVAS_WIDTH * 0.1;
 
     drawBackground();
+
+    /*if (screen.width * 2 > screen.height * 0.75) {
+     canvas.width = (screen.height * 0.75) / 2;
+     canvas.height = screen.height;
+     console.log(canvas.width + " " + canvas.height);
+     }
+     else {
+     canvas.width = screen.width;
+     canvas.height = screen.width * 2;
+     }*/
 
     setTimeout(start, 3000);
     new Engine();
 }
-
 function drawBackground() {
     g.drawImage(boardImg, 0, 0);
 }
@@ -57,7 +68,7 @@ function renderCanvas() {
         var x = shadowX + getX(curPiece, i);
         var y = shadowY - getY(curPiece, i);
         g.fillStyle = "black";
-        g.fillRect(x * 32, (BOARD_HEIGHT - y - 1) * 32, 32, 32);
+        g.fillRect(x * PIECE_SIZE, (BOARD_HEIGHT - y - 1) * PIECE_SIZE, PIECE_SIZE, PIECE_SIZE);
     }
 
     for (var i = 0; i < 4; i++) {
@@ -65,58 +76,58 @@ function renderCanvas() {
         var y = curY - getY(curPiece, i);
         g.beginPath();
         g.strokeStyle = "black";
-        g.moveTo(x * 32, (BOARD_HEIGHT - y - 1) * 32);
-        g.lineTo(x * 32 + 32, (BOARD_HEIGHT - y - 1) * 32);
-        g.lineTo(x * 32 + 32, (BOARD_HEIGHT - y - 1) * 32 + 32);
-        g.lineTo(x * 32, (BOARD_HEIGHT - y - 1) * 32 + 32);
-        g.lineTo(x * 32, (BOARD_HEIGHT - y - 1) * 32);
+        g.moveTo(x * PIECE_SIZE, (BOARD_HEIGHT - y - 1) * PIECE_SIZE);
+        g.lineTo(x * PIECE_SIZE + PIECE_SIZE, (BOARD_HEIGHT - y - 1) * PIECE_SIZE);
+        g.lineTo(x * PIECE_SIZE + PIECE_SIZE, (BOARD_HEIGHT - y - 1) * PIECE_SIZE + PIECE_SIZE);
+        g.lineTo(x * PIECE_SIZE, (BOARD_HEIGHT - y - 1) * PIECE_SIZE + PIECE_SIZE);
+        g.lineTo(x * PIECE_SIZE, (BOARD_HEIGHT - y - 1) * PIECE_SIZE);
         g.stroke();
         g.closePath();
         var shape = curPiece.pieceShape;
         if (shape === "ZShape")
-            g.drawImage(darkBlue, x * 32, (BOARD_HEIGHT - y - 1) * 32);
+            g.drawImage(darkBlue, x * PIECE_SIZE, (BOARD_HEIGHT - y - 1) * PIECE_SIZE);
         else if (shape === "SShape")
-            g.drawImage(green, x * 32, (BOARD_HEIGHT - y - 1) * 32);
+            g.drawImage(green, x * PIECE_SIZE, (BOARD_HEIGHT - y - 1) * PIECE_SIZE);
         else if (shape === "LineShape")
-            g.drawImage(lightBlue, x * 32, (BOARD_HEIGHT - y - 1) * 32);
+            g.drawImage(lightBlue, x * PIECE_SIZE, (BOARD_HEIGHT - y - 1) * PIECE_SIZE);
         else if (shape === "TShape")
-            g.drawImage(purple, x * 32, (BOARD_HEIGHT - y - 1) * 32);
+            g.drawImage(purple, x * PIECE_SIZE, (BOARD_HEIGHT - y - 1) * PIECE_SIZE);
         else if (shape === "SquareShape")
-            g.drawImage(red, x * 32, (BOARD_HEIGHT - y - 1) * 32);
+            g.drawImage(red, x * PIECE_SIZE, (BOARD_HEIGHT - y - 1) * PIECE_SIZE);
         else if (shape === "LShape")
-            g.drawImage(orange, x * 32, (BOARD_HEIGHT - y - 1) * 32);
+            g.drawImage(orange, x * PIECE_SIZE, (BOARD_HEIGHT - y - 1) * PIECE_SIZE);
         else if (shape === "MirroredLShape")
-            g.drawImage(yellow, x * 32, (BOARD_HEIGHT - y - 1) * 32);
+            g.drawImage(yellow, x * PIECE_SIZE, (BOARD_HEIGHT - y - 1) * PIECE_SIZE);
     }
 
     for (var y = 0; y < 20; y++) {
         for (var x = 0; x < 10; x++) {
             var shape = pieceAt(x, BOARD_HEIGHT - y - 1);
             if (shape === "ZShape")
-                g.drawImage(darkBlue, x * 32, y * 32);
+                g.drawImage(darkBlue, x * PIECE_SIZE, y * PIECE_SIZE);
             else if (shape === "SShape")
-                g.drawImage(green, x * 32, y * 32);
+                g.drawImage(green, x * PIECE_SIZE, y * PIECE_SIZE);
             else if (shape === "LineShape")
-                g.drawImage(lightBlue, x * 32, y * 32);
+                g.drawImage(lightBlue, x * PIECE_SIZE, y * PIECE_SIZE);
             else if (shape === "TShape")
-                g.drawImage(purple, x * 32, y * 32);
+                g.drawImage(purple, x * PIECE_SIZE, y * PIECE_SIZE);
             else if (shape === "SquareShape")
-                g.drawImage(red, x * 32, y * 32);
+                g.drawImage(red, x * PIECE_SIZE, y * PIECE_SIZE);
             else if (shape === "LShape")
-                g.drawImage(orange, x * 32, y * 32);
+                g.drawImage(orange, x * PIECE_SIZE, y * PIECE_SIZE);
             else if (shape === "MirroredLShape")
-                g.drawImage(yellow, x * 32, y * 32);
+                g.drawImage(yellow, x * PIECE_SIZE, y * PIECE_SIZE);
             else if (shape === "Trash")
-                g.drawImage(trash, x * 32, y * 32);
+                g.drawImage(trash, x * PIECE_SIZE, y * PIECE_SIZE);
 
             if (shape != "NoShape") {
                 g.beginPath();
                 g.strokeStyle = "black";
-                g.moveTo(x * 32, y * 32);
-                g.lineTo(x * 32 + 32, y * 32);
-                g.lineTo(x * 32 + 32, y * 32 + 32);
-                g.lineTo(x * 32, y * 32 + 32);
-                g.lineTo(x * 32, y * 32);
+                g.moveTo(x * PIECE_SIZE, y * PIECE_SIZE);
+                g.lineTo(x * PIECE_SIZE + PIECE_SIZE, y * PIECE_SIZE);
+                g.lineTo(x * PIECE_SIZE + PIECE_SIZE, y * PIECE_SIZE + PIECE_SIZE);
+                g.lineTo(x * PIECE_SIZE, y * PIECE_SIZE + PIECE_SIZE);
+                g.lineTo(x * PIECE_SIZE, y * PIECE_SIZE);
                 g.stroke();
                 g.closePath();
             }
@@ -164,6 +175,10 @@ $(function () {
     $('#rotate').click(function () {
         curPiece = rotateRight(curPiece);
         checkMove(curPiece, curX, curY);
+    });
+
+    $('#down').click(function () {
+        checkMove(curPiece, curX, curY - 1);
     });
 
     game();

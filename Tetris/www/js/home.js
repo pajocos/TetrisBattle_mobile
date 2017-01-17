@@ -3,7 +3,7 @@
  */
 
 var socket;
-var URL = "192.168.1.25";
+var URL = "188.166.171.219";
 
 $(function () {
 

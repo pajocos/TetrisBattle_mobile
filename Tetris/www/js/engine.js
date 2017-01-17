@@ -190,3 +190,17 @@ function removeFullLines() {
         renderCanvas();
     }
 }
+
+/*
+ * LINES PROTOCOL
+ */
+
+function sendLine(numLines) {
+    socket.emit('send_line', {user: opponent, num: numLines});
+}
+
+socket.on('receive_line', function (data) {
+    for (var i = 0; i < data.num; i++) {
+        addTrash();
+    }
+});

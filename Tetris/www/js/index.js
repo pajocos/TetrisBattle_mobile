@@ -17,7 +17,7 @@
  * under the License.
  */
 
-var URL = "192.168.1.25";
+var URL = "188.166.171.219";
 
 var app = {
     initialize: function () {
