@@ -1,5 +1,15 @@
 ////////////
 var socket;
+
+//SOUNDS
+var background_music;
+var sound_GameOver;
+var sound_GameStart;
+var sound_PieceDrop;
+var sound_PieceMoveLR;
+var sound_PieceRot;
+var sound_PieceDown;
+var sound_LineClear;
 ////////////
 
 var board;
@@ -13,8 +23,6 @@ var curY = 0;
 
 var shadowX;
 var shadowY;
-
-var points = 0;
 
 var animationInterval = null;
 
@@ -73,12 +81,20 @@ function newPiece() {
     curY = BOARD_HEIGHT - 1 + minY(curPiece);
 
     if (!checkMove(curPiece, curX, curY)) {
-        clearInterval(animationInterval);
-        isStarted = false;
-        animationInterval = null;
-        clearBoard();
-        drawBackground();
+        stopGame();
+        updateScores(score, false);
+        //send game over to the other user
+        socket.emit('game_over', {user: window.localStorage.getItem('opponent')});
+        navigator.notification.alert('You lost the game with ' + score + ' points', function () {
+            window.location.assign("home.html");
+        }, 'Looser!', 'Go back to main menu');
     }
+}
+
+function stopGame() {
+    clearInterval(animationInterval);
+    isStarted = false;
+    animationInterval = null;
 }
 
 function checkMove(newPiece, newX, newY) {
@@ -129,7 +145,7 @@ function jump() {
     pieceDropped();
 }
 
-function posibleMove(newPiece, newX, newY) {
+function possibleMove(newPiece, newX, newY) {
     for (var i = 0; i < 4; i++) {
         var x = newX + getX(newPiece, i);
         var y = newY - getY(newPiece, i);
@@ -144,7 +160,7 @@ function posibleMove(newPiece, newX, newY) {
 function shadow() {
     shadowY = curY;
     while (shadowY > 0) {
-        if (!posibleMove(curPiece, shadowX, shadowY - 1))
+        if (!possibleMove(curPiece, shadowX, shadowY - 1))
             break;
         --shadowY;
     }
@@ -188,7 +204,7 @@ function removeFullLines() {
     }
 
     if (numFullLines > 0) {
-        points += Math.pow(2, numFullLines);
+        score += Math.pow(2, numFullLines);
         isFallingFinished = true;
         sendLine(numFullLines);
         sound_LineClear.play();

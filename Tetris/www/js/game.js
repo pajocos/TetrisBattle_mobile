@@ -3,20 +3,8 @@
  */
 
 var URL = "192.168.1.25";
-//var socket;
 var opponent;
-var key;
 var username;
-
-//SOUNDS
-var background_music;
-var sound_GameOver;
-var sound_GameStart;
-var sound_PieceDrop;
-var sound_PieceMoveLR;
-var sound_PieceRot;
-var sound_PieceDown;
-var sound_LineClear;
 
 var app = {
     initialize: function () {
@@ -31,6 +19,8 @@ var app = {
 
         socket = io.connect('http://' + URL + ':3000');
 
+        setTimeout(playMusic, 3000);
+
         socket.on('connect', function () {
             username = window.localStorage.getItem('username');
             opponent = window.localStorage.getItem('opponent');
@@ -43,7 +33,13 @@ var app = {
             }
         });
 
-        setTimeout(playMusic, 3000);
+        socket.on('lost_game', function () {
+            stopGame();
+            updateScores(score, true);
+            navigator.notification.alert('You won the game with ' + score + ' points', function () {
+                window.location.assign("home.html");
+            }, 'Winner', 'Go back to main menu');
+        });
     },
     backButton: function (e) {
         e.preventDefault();
@@ -58,7 +54,7 @@ var app = {
 
 app.initialize();
 
-function updateScores(currentScore) {
+function updateScores(currentScore, winner) {
     //update high_score if bigger than previous one
     if (currentScore > window.localStorage.getItem('high_score')) {
         $.ajax({
@@ -76,21 +72,22 @@ function updateScores(currentScore) {
         });
     }
 
-    var newXP = parseInt(window.localStorage.getItem('exp_points')) + parseInt(currentScore);
-
-    $.ajax({
-        type: "POST",
-        contentType: "application/x-www-form-urlencoded",
-        url: "http://" + URL + ":3000/API/updatePoints",
-        data: $.param({username: username, score: newXP}),
-        dataType: "text",
-        success: function () {
-            console.log("exp points updated");
-        },
-        error: function (result) {
-            throw result;
-        }
-    });
+    if (winner) {
+        var newXP = parseInt(window.localStorage.getItem('exp_points')) + parseInt(currentScore);s
+        $.ajax({
+            type: "POST",
+            contentType: "application/x-www-form-urlencoded",
+            url: "http://" + URL + ":3000/API/updatePoints",
+            data: $.param({username: username, score: newXP}),
+            dataType: "text",
+            success: function () {
+                console.log("exp points updated");
+            },
+            error: function (result) {
+                throw result;
+            }
+        });
+    }
 }
 
 function playMusic() {

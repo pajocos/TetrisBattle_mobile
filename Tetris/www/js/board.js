@@ -135,31 +135,6 @@ function renderCanvas() {
     }
 }
 
-/*function keydownHandler(e) {
- if (e.keyCode === 13) // NUMPAD ENTER
- {
- start();
- } else if (e.keyCode === 32) // spacebar
- {
- jump();
- } else if (e.keyCode === 37) // left
- {
- checkMove(curPiece, curX - 1, curY);
- } else if (e.keyCode === 38) // up
- {
- curPiece = rotateRight(curPiece);
- checkMove(curPiece, curX, curY);
- } else if (e.keyCode === 39) // right
- {
- checkMove(curPiece, curX + 1, curY);
- } else if (e.keyCode === 40) // down
- {
- checkMove(curPiece, curX, curY - 1);
- } else if (e.keyCode === 8) {
- addTrash();
- }
- }*/
-
 $(function () {
     $('#left').click(function () {
         if (isStarted) {
@@ -183,8 +158,7 @@ $(function () {
 
     $('#rotate').click(function () {
         if (isStarted) {
-            curPiece = rotateRight(curPiece);
-            checkMove(curPiece, curX, curY);
+            checkMove(rotateRight(curPiece), curX, curY);
             sound_PieceRot.play();
         }
     });

@@ -5,6 +5,7 @@
 var socket;
 var sound_ButtonUp;
 var background_sound;
+var isSettingsOpen;
 var URL = "192.168.1.25";
 
 var app = {
@@ -15,10 +16,11 @@ var app = {
         document.addEventListener('resume', this.resume.bind(this), false);
     },
     onDeviceReady: function () {
+        isSettingsOpen = false;
+        initConnections();
         playMusic();
 
         sound_ButtonUp = new Media('/android_asset/www/img/sounds/SFX_ButtonUp.wav');
-        sound_ButtonUp.setVolume(1.0);
     },
     backButton: function (e) {
         e.preventDefault();
@@ -39,7 +41,7 @@ var app = {
 
 app.initialize();
 
-$(function () {
+function initConnections() {
 
     socket = io.connect('http://' + URL + ':3000');
     var username = window.localStorage.getItem('username');
@@ -76,25 +78,33 @@ $(function () {
     socket.on('reply_to_request_game', function (data) {
         if (data.reply == 'no') {
             alert(data.user + " doesn't like you :(");
-            window.location = "home.html";
+            window.location.assign("home.html");
         }
         else {
             window.localStorage.setItem('opponent', data.user);
-            window.location = "game.html";
+            window.location.assign("game.html");
         }
     });
 
     updateLabels();
     startNewGame();
-});
+};
 
-$('#settings').click(function (e) {
+$('#settings').click(function () {
     sound_ButtonUp.play();
+    if (!isSettingsOpen) {
+        isSettingsOpen = true;
+        $('#settings-panel').html(' <div class="row"><div class="panel"><div class="col-lg-12"><h1>Settings</h1> <div class="checkbox checkbox-slider--c"> <label> <input id="music" type="checkbox"><span>Background music</span> </label> </div> </div> </div> </div>')
+        if (window.localStorage.getItem('background_sound') == true || window.localStorage.getItem('background_sound') == null) {
+            alert(window.localStorage.getItem('background_sound'));
+            $('music').prop('checked', true);
+        }
+    }
+    else {
+        isSettingsOpen = false;
+        $('#settings-panel').empty();
+    }
 
-    $('#settings-panel').html(' <div class="row"><div class="panel"><div class="col-lg-12"><h1>Settings</h1> <div class="checkbox checkbox-slider--c"> <label> <input id="music" type="checkbox" checked><span>Background music</span> </label> </div> </div> </div> </div>')
-
-    //window.location.assign("settings.html");
-    //e.preventDefault();
 });
 
 function updateLabels() {
@@ -156,17 +166,18 @@ function startNewGame() {
 }
 
 function playMusic() {
-    //if (window.localStorage.getItem('background_sound') == true) {
-    background_sound = new Media('/android_asset/www/img/sounds/sound_home.mp3', null, null, function () {
-        if (status == Media.MEDIA_STOPPED) {
-            background_sound.play();
-        }
-    });
-    background_sound.play();
-    background_sound.setVolume('0.4');
-    // }
+    //if (window.localStorage.getItem('background_sound') || window.localStorage.getItem('background_sound') == null) {
+        background_sound = new Media('/android_asset/www/img/sounds/sound_home.mp3', null, null, function () {
+            if (status == Media.MEDIA_STOPPED) {
+                background_sound.play();
+            }
+        });
+        background_sound.play();
+        background_sound.setVolume('0.4');
+    //}
 }
 
+/*
 $('#music').change(function () {
     if ($(this).is(":checked")) {
         window.localStorage.setItem('background_sound', true);
@@ -174,7 +185,7 @@ $('#music').change(function () {
     else {
         window.localStorage.setItem('background_sound', false);
     }
-});
+});*/
 
 $('#top').click(function () {
     navigator.notification.alert('cenas cenas', null, 'About', 'Exit');

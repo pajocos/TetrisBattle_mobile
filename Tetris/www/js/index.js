@@ -9,29 +9,27 @@ var app = {
         document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
     },
     onDeviceReady: function () {
-
+        if (window.localStorage.getItem('background_sound') == null) {
+            window.localStorage.setItem('background_sound', true);
+        }
     }
 };
 
 app.initialize();
 
-$(function () {
-
-    $('#login-form-link').click(function (e) {
-        $("#login-form").delay(100).fadeIn(100);
-        $("#register-form").fadeOut(100);
-        $('#register-form-link').removeClass('active');
-        $(this).addClass('active');
-        e.preventDefault();
-    });
-    $('#register-form-link').click(function (e) {
-        $("#register-form").delay(100).fadeIn(100);
-        $("#login-form").fadeOut(100);
-        $('#login-form-link').removeClass('active');
-        $(this).addClass('active');
-        e.preventDefault();
-    });
-
+$('#login-form-link').click(function (e) {
+    $("#login-form").delay(100).fadeIn(100);
+    $("#register-form").fadeOut(100);
+    $('#register-form-link').removeClass('active');
+    $(this).addClass('active');
+    e.preventDefault();
+});
+$('#register-form-link').click(function (e) {
+    $("#register-form").delay(100).fadeIn(100);
+    $("#login-form").fadeOut(100);
+    $('#login-form-link').removeClass('active');
+    $(this).addClass('active');
+    e.preventDefault();
 });
 
 $("#login-submit").click(function (e) {
@@ -54,7 +52,7 @@ $("#login-submit").click(function (e) {
                 storage.setItem('remember', true);
                 //In future, put webtoken for authenticity
             }
-            window.location = "home.html";
+            window.location.assign("home.html");
         },
         error: function (result) {
             console.log(result);
