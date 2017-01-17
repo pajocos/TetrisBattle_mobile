@@ -5,11 +5,14 @@
     <description>
         Fight with available players!
     </description>
-    <author email="random@gmail.com" href="http://cordova.io">
-        Mobile Games
+    <author email="paulocosta94@gmail.com">
+        Paulo Costa
+    </author>
+    <author email="jota94mfm@gmail.com">
+        João Morgado
     </author>
 
-    <content src="index.html"/>
+    <content src="home.html"/>
 
     <plugin name="cordova-plugin-whitelist" spec="1"/>
     <plugin name="cordova-plugin-splashscreen" source="npm"/>
@@ -20,7 +23,7 @@
     <allow-intent href="https://*/*"/>
 
     <platform name="android">
-        <hook type="after_prepare" src="copyImages.js" />
+        <hook type="after_prepare" src="copyImages.js"/>
         <allow-intent href="market:*"/>
     </platform>
     <platform name="ios">

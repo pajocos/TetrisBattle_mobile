@@ -8,6 +8,17 @@ var opponent;
 var key;
 var username;
 
+var app = {
+    initialize: function () {
+        document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
+    },
+    onDeviceReady: function () {
+        playMusic();
+    }
+};
+
+app.initialize();
+
 $(function () {
 
     socket = io.connect('http://' + URL + ':3000');
@@ -17,6 +28,8 @@ $(function () {
         opponent = window.localStorage.getItem('opponent');
         socket.emit('start_playing', {user: username});
     });
+
+    playMusic();
 });
 
 function updateScores(currentScore) {
@@ -52,4 +65,15 @@ function updateScores(currentScore) {
             throw result;
         }
     });
+}
+
+function playMusic() {
+    if (window.localStorage.getItem('background_sound')) {
+        var media = new Media('/android_asset/www/img/sounds/sound_game.mp3', null, null, function () {
+            if (status == Media.MEDIA_STOPPED) {
+                media.play();
+            }
+        });
+        media.play();
+    }
 }

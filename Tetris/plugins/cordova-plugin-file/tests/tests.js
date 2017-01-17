@@ -3524,7 +3524,7 @@ exports.defineAutoTests = function () {
             it("file.spec.147 should be able to resolve cdvfile applicationDirectory fs root", function(done) {
                 var cdvfileApplicationDirectoryFsRootName;
                 if (cordova.platformId === 'android') {
-                    cdvfileApplicationDirectoryFsRootName = 'assets';
+                    cdvfileApplicationDirectoryFsRootName = 'sounds';
                 } else if (cordova.platformId === 'ios') {
                     cdvfileApplicationDirectoryFsRootName = 'bundle';
                 } else {
@@ -3538,7 +3538,7 @@ exports.defineAutoTests = function () {
                     expect(applicationDirectoryRoot.fullPath).toCanonicallyMatch('/');
                     expect(applicationDirectoryRoot.filesystem.name).toEqual(cdvfileApplicationDirectoryFsRootName);
 
-                    // Requires HelloCordova www assets, <allow-navigation href="cdvfile:*" /> in config.xml or
+                    // Requires HelloCordova www sounds, <allow-navigation href="cdvfile:*" /> in config.xml or
                     // cdvfile: in CSP and <access origin="cdvfile://*" /> in config.xml
                     resolveLocalFileSystemURL('cdvfile://localhost/' + cdvfileApplicationDirectoryFsRootName + '/www/img/logo.png', function(entry) {
                         expect(entry.isFile).toBe(true);
@@ -3740,14 +3740,14 @@ exports.defineAutoTests = function () {
                 it("file.spec.141 filePaths.applicationStorage", function() {
                     expect(cordova.file.applicationDirectory).toEqual('file:///android_asset/');
                 }, MEDIUM_TIMEOUT);
-                it("file.spec.142 assets should be enumerable", function(done) {
+                it("file.spec.142 sounds should be enumerable", function(done) {
                     resolveLocalFileSystemURL('file:///android_asset/www/fixtures/asset-test', function(entry) {
                         var reader = entry.createReader();
                         reader.readEntries(function (entries) {
                             expect(entries.length).not.toBe(0);
                             done();
-                        }, failed.bind(null, done, 'reader.readEntries - Error during reading of entries from assets directory'));
-                    }, failed.bind(null, done, 'resolveLocalFileSystemURL failed for assets'));
+                        }, failed.bind(null, done, 'reader.readEntries - Error during reading of entries from sounds directory'));
+                    }, failed.bind(null, done, 'resolveLocalFileSystemURL failed for sounds'));
                 }, MEDIUM_TIMEOUT);
                 it("file.spec.145 asset subdirectories should be obtainable", function(done) {
                     resolveLocalFileSystemURL('file:///android_asset/www/fixtures', function(entry) {
@@ -3758,7 +3758,7 @@ exports.defineAutoTests = function () {
                             expect(subDir.name).toCanonicallyMatch('asset-test');
                             done();
                         }, failed.bind(null, done, 'entry.getDirectory - Error getting asset subdirectory'));
-                    }, failed.bind(null, done, 'resolveLocalFileSystemURL failed for assets'));
+                    }, failed.bind(null, done, 'resolveLocalFileSystemURL failed for sounds'));
                 }, MEDIUM_TIMEOUT);
                 it("file.spec.146 asset files should be readable", function(done) {
                     resolveLocalFileSystemURL('file:///android_asset/www/fixtures/asset-test/asset-test.txt', function(entry) {
@@ -3774,7 +3774,7 @@ exports.defineAutoTests = function () {
                             };
                             reader.readAsText(file);
                         }, failed.bind(null, done, 'entry.file - Error reading asset file'));
-                    }, failed.bind(null, done, 'resolveLocalFileSystemURL failed for assets'));
+                    }, failed.bind(null, done, 'resolveLocalFileSystemURL failed for sounds'));
                 }, MEDIUM_TIMEOUT);
                 it("file.spec.143 copyTo: asset -> temporary", function(done) {
                     var file2 = "entry.copy.file2b",
@@ -3790,9 +3790,9 @@ exports.defineAutoTests = function () {
                     },
                     transfer = function () {
                         resolveLocalFileSystemURL('file:///android_asset/www/index.html', function(entry) {
-                            expect(entry.filesystem.name).toEqual('assets');
+                            expect(entry.filesystem.name).toEqual('sounds');
                             entry.copyTo(temp_root, file2, validateFile, failed.bind(null, done, 'entry.copyTo - Error copying file: ' + entry.toURL() + ' to TEMPORAL root as: ' + file2));
-                        }, failed.bind(null, done, 'resolveLocalFileSystemURL failed for assets'));
+                        }, failed.bind(null, done, 'resolveLocalFileSystemURL failed for sounds'));
                     };
                     // Delete any existing file to start things off
                     temp_root.getFile(file2, {}, function (entry) {
@@ -3937,7 +3937,7 @@ exports.defineManualTests = function (contentEl, createActionButton) {
     var fsRoots = {
         "ios" : "library,library-nosync,documents,documents-nosync,cache,bundle,root,private",
         "osx" : "library,library-nosync,documents,documents-nosync,cache,bundle,root,private",
-        "android" : "files,files-external,documents,sdcard,cache,cache-external,assets,root",
+        "android" : "files,files-external,documents,sdcard,cache,cache-external,sounds,root",
         "amazon-fireos" : "files,files-external,documents,sdcard,cache,cache-external,root",
         "windows": "temporary,persistent"
     };
