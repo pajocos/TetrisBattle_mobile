@@ -51,8 +51,11 @@ body {
     padding: 5px 15px;
 }
 
-#settings {
-    text-align: right;
+#top {
+    color: #fff;
+    position: absolute;
+    top: 5px;
+    right: 8px;
 }
 
 

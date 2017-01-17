@@ -91,8 +91,10 @@ $(function () {
 $('#settings').click(function (e) {
     sound_ButtonUp.play();
 
-    window.location.assign("settings.html");
-    e.preventDefault();
+    $('#settings-panel').html(' <div class="row"><div class="panel"><div class="col-lg-12"><h1>Settings</h1> <div class="checkbox checkbox-slider--c"> <label> <input id="music" type="checkbox" checked><span>Background music</span> </label> </div> </div> </div> </div>')
+
+    //window.location.assign("settings.html");
+    //e.preventDefault();
 });
 
 function updateLabels() {
@@ -165,3 +167,15 @@ function playMusic() {
     // }
 }
 
+$('#music').change(function () {
+    if ($(this).is(":checked")) {
+        window.localStorage.setItem('background_sound', true);
+    }
+    else {
+        window.localStorage.setItem('background_sound', false);
+    }
+});
+
+$('#top').click(function () {
+    navigator.notification.alert('cenas cenas', null, 'About', 'Exit');
+});

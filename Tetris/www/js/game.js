@@ -10,7 +10,6 @@ var username;
 
 //SOUNDS
 var background_music;
-var sound_ButtonUp;
 var sound_GameOver;
 var sound_GameStart;
 var sound_PieceDrop;
