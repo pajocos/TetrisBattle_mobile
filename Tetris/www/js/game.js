@@ -3,7 +3,7 @@
  */
 
 var URL = "192.168.1.25";
-var socket;
+//var socket;
 var opponent;
 var key;
 var username;
@@ -38,10 +38,9 @@ var app = {
         });
 
         socket.on('receive_line', function (data) {
-            /*for (var i = 0; i < data.num; i++) {
-             addTrash();
-             }*/
-            socket.emit('teste', 'pro caralho');
+            for (var i = 0; i < data.num; i++) {
+                addTrash();
+            }
         });
 
         setTimeout(playMusic, 3000);

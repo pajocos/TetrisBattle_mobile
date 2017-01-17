@@ -1,3 +1,7 @@
+////////////
+var socket;
+////////////
+
 var board;
 var curPiece;
 var nextPiece;
@@ -191,10 +195,6 @@ function removeFullLines() {
         renderCanvas();
     }
 }
-
-$(function () {
-
-});
 
 function sendLine(numLines) {
     socket.emit('send_line', {user: opponent, num: numLines});
