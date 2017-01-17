@@ -8,12 +8,27 @@ var opponent;
 var key;
 var username;
 
+//SOUNDS
+var background_music;
+var sound_ButtonUp;
+var sound_GameOver;
+var sound_GameStart;
+var sound_PieceDrop;
+var sound_PieceMoveLR;
+var sound_PieceRot;
+var sound_PieceDown;
+var sound_LineClear;
+
 var app = {
     initialize: function () {
         document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
     },
     onDeviceReady: function () {
-        playMusic();
+        loadSoundEffects();
+        sound_GameStart.play();
+        setTimeout(function () {
+            playMusic();
+        }, 3000);
     }
 };
 
@@ -69,11 +84,22 @@ function updateScores(currentScore) {
 
 function playMusic() {
     if (window.localStorage.getItem('background_sound')) {
-        var media = new Media('/android_asset/www/img/sounds/sound_game.mp3', null, null, function () {
+        background_music = new Media('/android_asset/www/img/sounds/sound_game.mp3', null, null, function () {
             if (status == Media.MEDIA_STOPPED) {
-                media.play();
+                background_music.play();
             }
         });
-        media.play();
+        background_music.play();
+        background_music.setVolume('0.4');
     }
+}
+
+function loadSoundEffects() {
+    sound_GameOver = new Media('/android_asset/www/img/sounds/SFX_GameOver.ogg');
+    sound_GameStart = new Media('/android_asset/www/img/sounds/SFX_GameStart.ogg');
+    sound_PieceDrop = new Media('/android_asset/www/img/sounds/SFX_PieceHardDrop.ogg');
+    sound_PieceMoveLR = new Media('/android_asset/www/img/sounds/SFX_PieceMoveLR.ogg');
+    sound_PieceRot = new Media('/android_asset/www/img/sounds/SFX_PieceRotateLR.ogg');
+    sound_PieceDown = new Media('/android_asset/www/img/sounds/SFX_PieceSoftDrop.ogg');
+    sound_LineClear = new Media('/android_asset/www/img/sounds/SFX_SpecialLineClearDouble.ogg');
 }

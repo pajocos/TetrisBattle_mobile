@@ -3,6 +3,7 @@
  */
 
 var socket;
+var sound_ButtonUp;
 var URL = "188.166.171.219";
 
 var app = {
@@ -11,6 +12,9 @@ var app = {
     },
     onDeviceReady: function () {
         playMusic();
+
+        sound_ButtonUp = new Media('/android_asset/www/img/sounds/SFX_ButtonUp.wav');
+        sound_ButtonUp.setVolume(1.0);
     }
 };
 
@@ -64,6 +68,8 @@ $(function () {
 });
 
 $('#settings').click(function (e) {
+    sound_ButtonUp.play();
+
     window.location.assign("settings.html");
     e.preventDefault();
 });
@@ -100,37 +106,41 @@ function updateLabels() {
 
 function manageList() {
     $("ul li").click(function () {
+        sound_ButtonUp.play();
+
         $(this).parent().children().removeClass("active");
         $(this).addClass("active");
-    })
+    });
 }
 
 function startNewGame() {
     $("#newGame-submit").click(function () {
+        sound_ButtonUp.play();
+
         var initial_user = window.localStorage.getItem('username');
         var opponent = $('.active').html();
         window.localStorage.setItem('opponent', opponent);
-
-        $('.form-group').empty();
-        $('.form-group').append('<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>');
 
         if (opponent == null) {
             alert("No opponent!");
         }
         else {
+            $('.form-group').empty();
+            $('.form-group').append('<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>');
             socket.emit('new_game_request', {user: opponent, initial_user: initial_user});
         }
     });
 }
 
 function playMusic() {
-    if (window.localStorage.getItem('background_sound') == true) {
-        var media = new Media('/android_asset/www/img/sounds/sound_home.mp3', null, null, function () {
-            if (status == Media.MEDIA_STOPPED) {
-                media.play();
-            }
-        });
-        media.play();
-    }
+    //if (window.localStorage.getItem('background_sound') == true) {
+    var media = new Media('/android_asset/www/img/sounds/sound_home.mp3', null, null, function () {
+        if (status == Media.MEDIA_STOPPED) {
+            media.play();
+        }
+    });
+    media.play();
+    media.setVolume('0.4');
+    // }
 }
 
