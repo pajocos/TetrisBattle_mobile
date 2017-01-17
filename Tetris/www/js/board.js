@@ -32,6 +32,15 @@ yellow.src = "img/Yellow.jpg";
 var trash = new Image();
 trash.src = "img/Trash.jpg";
 
+var one = new Image();
+one.src = "../img/1.png";
+
+var two = new Image();
+two.src = "../img/2.png";
+
+var three = new Image();
+three.src = "../img/3.png";
+
 function game() {
 
     canvas = document.getElementById("canvas");
@@ -133,6 +142,22 @@ function renderCanvas() {
             }
         }
     }
+}
+
+function drawCount(count) {
+  g.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+  switch (count) {
+    case 1:
+      g.drawImage(one, CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 - 60);
+      break;
+    case 2:
+      g.drawImage(two, CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 - 60);
+      break;
+    case 3:
+      g.drawImage(three, CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 - 60);
+      break;
+    default:
+  }
 }
 
 $(function () {

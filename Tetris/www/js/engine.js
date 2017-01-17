@@ -24,7 +24,10 @@ var curY = 0;
 var shadowX;
 var shadowY;
 
+var countDownValue;
+
 var animationInterval = null;
+var countDownInterval = null;
 
 var BOARD_WIDTH = 10;
 var BOARD_HEIGHT = 20;
@@ -42,9 +45,28 @@ function start() {
     isStarted = true;
     isFallingFinished = false;
     score = 0;
+    countDownValue = 3;
+    startCountDownTimer();
+}
+
+function startCountDownTimer(){
+  if (countDownInterval === null){
+    countDownInterval = setInterval(countDown, 1000);
+  }
+}
+
+function countDown(){
+  if (countDownValue > 0){
+    drawCount(countDownValue);
+    countDownValue--;
+  }
+  else {
     clearBoard();
     newPiece();
     startAnimationTimer();
+    clearInterval(countDownInterval);
+    countDownInterval = null;
+  }
 }
 
 function startAnimationTimer() {
