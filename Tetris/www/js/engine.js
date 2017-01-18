@@ -24,7 +24,7 @@ var curY = 0;
 var shadowX;
 var shadowY;
 
-var countDownValue;
+var countDownValue = 0;
 
 var animationInterval = null;
 var countDownInterval = null;
@@ -49,24 +49,24 @@ function start() {
     startCountDownTimer();
 }
 
-function startCountDownTimer(){
-  if (countDownInterval === null){
-    countDownInterval = setInterval(countDown, 1000);
-  }
+function startCountDownTimer() {
+    if (countDownInterval === null) {
+        countDownInterval = setInterval(countDown, 1000);
+    }
 }
 
-function countDown(){
-  if (countDownValue > 0){
-    drawCount(countDownValue);
-    countDownValue--;
-  }
-  else {
-    clearBoard();
-    newPiece();
-    startAnimationTimer();
-    clearInterval(countDownInterval);
-    countDownInterval = null;
-  }
+function countDown() {
+    if (countDownValue > 0) {
+        drawCount(countDownValue);
+        countDownValue--;
+    }
+    else {
+        clearBoard();
+        newPiece();
+        startAnimationTimer();
+        clearInterval(countDownInterval);
+        countDownInterval = null;
+    }
 }
 
 function startAnimationTimer() {

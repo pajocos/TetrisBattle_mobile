@@ -33,13 +33,13 @@ var trash = new Image();
 trash.src = "img/Trash.jpg";
 
 var one = new Image();
-one.src = "../img/1.png";
+one.src = "img/1.png";
 
 var two = new Image();
-two.src = "../img/2.png";
+two.src = "img/2.png";
 
 var three = new Image();
-three.src = "../img/3.png";
+three.src = "img/3.png";
 
 function game() {
 
@@ -51,8 +51,6 @@ function game() {
     canvas.height = CANVAS_HEIGHT;
     PIECE_SIZE = CANVAS_WIDTH * 0.1;
 
-    drawBackground();
-
     /*if (screen.width * 2 > screen.height * 0.75) {
      canvas.width = (screen.height * 0.75) / 2;
      canvas.height = screen.height;
@@ -63,11 +61,8 @@ function game() {
      canvas.height = screen.width * 2;
      }*/
 
-    setTimeout(start, 3000);
     new Engine();
-}
-function drawBackground() {
-    g.drawImage(boardImg, 0, 0);
+    start();
 }
 
 function renderCanvas() {
@@ -145,19 +140,19 @@ function renderCanvas() {
 }
 
 function drawCount(count) {
-  g.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-  switch (count) {
-    case 1:
-      g.drawImage(one, CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 - 60);
-      break;
-    case 2:
-      g.drawImage(two, CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 - 60);
-      break;
-    case 3:
-      g.drawImage(three, CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 - 60);
-      break;
-    default:
-  }
+    g.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    switch (count) {
+        case 1:
+            g.drawImage(one, CANVAS_WIDTH / 2 - 35, CANVAS_HEIGHT / 2 - 60);
+            break;
+        case 2:
+            g.drawImage(two, CANVAS_WIDTH / 2 - 35, CANVAS_HEIGHT / 2 - 60);
+            break;
+        case 3:
+            g.drawImage(three, CANVAS_WIDTH / 2 - 35, CANVAS_HEIGHT / 2 - 60);
+            break;
+        default:
+    }
 }
 
 $(function () {

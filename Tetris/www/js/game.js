@@ -33,12 +33,16 @@ var app = {
             }
         });
 
-        socket.on('lost_game', function () {
+        socket.on('win_game', function () {
+            alert('1');
             stopGame();
+            alert('2');
             updateScores(score, true);
+            alert('3');
             navigator.notification.alert('You won the game with ' + score + ' points', function () {
                 window.location.assign("home.html");
             }, 'Winner', 'Go back to main menu');
+            alert('4');
         });
     },
     backButton: function (e) {
@@ -73,7 +77,7 @@ function updateScores(currentScore, winner) {
     }
 
     if (winner) {
-        var newXP = parseInt(window.localStorage.getItem('exp_points')) + parseInt(currentScore);s
+        var newXP = parseInt(window.localStorage.getItem('exp_points')) + parseInt(currentScore);
         $.ajax({
             type: "POST",
             contentType: "application/x-www-form-urlencoded",
