@@ -7,11 +7,17 @@ var URL = "192.168.1.25";
 var app = {
     initialize: function () {
         document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
+        document.addEventListener('offline', this.offline.bind(this), false);
     },
     onDeviceReady: function () {
         if (window.localStorage.getItem('play_sound') == null) {
             window.localStorage.setItem('play_sound', true);
         }
+    },
+    offline: function () {
+        navigator.notification.alert('No internet connection', function () {
+            window.location.assign('index.html');
+        }, 'Information', 'Close dialog');
     }
 };
 

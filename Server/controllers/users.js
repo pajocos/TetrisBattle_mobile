@@ -45,7 +45,16 @@ exports.start = function (io) {
         });
 
         client.on('game_over', function (data) {
-            io.to(clients_playing[data.user]).emit('lost_game', {});
+            io.to(clients_playing[data.user]).emit('win_game', {});
+
+            delete clients_playing[data.user];
+
+            for (var key in clients_playing) {
+                if (clients_playing.hasOwnProperty(key) && data.id == clients_playing.key) {
+                    delete clients_playing[key];
+                    break;
+                }
+            }
         });
 
         client.on('disconnect', function (data) {
@@ -58,7 +67,7 @@ exports.start = function (io) {
             }
 
             io.sockets.emit('refreshPlayers', sendPlayers());
-            console.log('Client disconnected: ' + JSON.stringify(clients));
+            console.log('Client disconnected');
         });
     });
 }

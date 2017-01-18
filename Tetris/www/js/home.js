@@ -15,6 +15,7 @@ var app = {
         document.addEventListener('backbutton', this.backButton.bind(this), false);
         document.addEventListener('pause', this.pause.bind(this), false);
         document.addEventListener('resume', this.resume.bind(this), false);
+        document.addEventListener('offline', this.offline.bind(this), false);
     },
     onDeviceReady: function () {
         playSound = window.localStorage.getItem('play_sound');
@@ -39,6 +40,11 @@ var app = {
     },
     resume: function () {
         background_sound.setVolume('0.4');
+    },
+    offline: function () {
+        navigator.notification.alert('No internet connection', function () {
+            window.location.assign('home.html');
+        }, 'Information', 'Close dialog');
     }
 
 };

@@ -21,6 +21,9 @@
         },
         "cordova-plugin-vibration": {
             "PACKAGE_NAME": "io.tetrisbattle"
+        },
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "io.tetrisbattle"
         }
     },
     "dependent_plugins": {
