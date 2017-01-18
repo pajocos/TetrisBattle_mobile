@@ -3,12 +3,7 @@
 <head>
 
     <script>
-        if (window.localStorage.getItem('username')) {
-            //load of index.js to add 'device ready'
-            /*$.getScript("index.js", function () {
-                alert('Script executed');
-            });*/
-
+        if (window.localStorage.getItem('username') != null) {
             window.location = "home.html";
         }
 

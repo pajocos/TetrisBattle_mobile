@@ -10,6 +10,8 @@ var sound_PieceMoveLR;
 var sound_PieceRot;
 var sound_PieceDown;
 var sound_LineClear;
+
+var playSound; //bool
 ////////////
 
 var board;
@@ -229,8 +231,9 @@ function removeFullLines() {
         score += Math.pow(2, numFullLines);
         isFallingFinished = true;
         sendLine(numFullLines);
-        sound_LineClear.play();
+        playSoundByName('sound_LineClear');
         renderCanvas();
+        navigator.vibrate(500);
     }
 }
 

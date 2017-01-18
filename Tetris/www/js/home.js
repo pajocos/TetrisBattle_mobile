@@ -6,6 +6,7 @@ var socket;
 var sound_ButtonUp;
 var background_sound;
 var isSettingsOpen;
+var playSound;
 var URL = "192.168.1.25";
 
 var app = {
@@ -16,6 +17,9 @@ var app = {
         document.addEventListener('resume', this.resume.bind(this), false);
     },
     onDeviceReady: function () {
+        playSound = window.localStorage.getItem('play_sound');
+        $('#settings-panel').hide();
+
         isSettingsOpen = false;
         initConnections();
         playMusic();
@@ -91,18 +95,19 @@ function initConnections() {
 };
 
 $('#settings').click(function () {
-    sound_ButtonUp.play();
+    if (playSound) {
+        sound_ButtonUp.play();
+    }
     if (!isSettingsOpen) {
         isSettingsOpen = true;
-        $('#settings-panel').html(' <div class="row"><div class="panel"><div class="col-lg-12"><h1>Settings</h1> <div class="checkbox checkbox-slider--c"> <label> <input id="music" type="checkbox"><span>Background music</span> </label> </div> </div> </div> </div>')
-        if (window.localStorage.getItem('background_sound') == true || window.localStorage.getItem('background_sound') == null) {
-            alert(window.localStorage.getItem('background_sound'));
-            $('music').prop('checked', true);
+        $('#settings-panel').show();
+        if (playSound) {
+            $('.music').prop("checked", true);
         }
     }
     else {
         isSettingsOpen = false;
-        $('#settings-panel').empty();
+        $('#settings-panel').hide();
     }
 
 });
@@ -139,7 +144,9 @@ function updateLabels() {
 
 function manageList() {
     $("ul li").click(function () {
-        sound_ButtonUp.play();
+        if (playSound) {
+            sound_ButtonUp.play();
+        }
 
         $(this).parent().children().removeClass("active");
         $(this).addClass("active");
@@ -148,7 +155,9 @@ function manageList() {
 
 function startNewGame() {
     $("#newGame-submit").click(function () {
-        sound_ButtonUp.play();
+        if (playSound) {
+            sound_ButtonUp.play();
+        }
 
         var initial_user = window.localStorage.getItem('username');
         var opponent = $('.active').html();
@@ -166,7 +175,7 @@ function startNewGame() {
 }
 
 function playMusic() {
-    //if (window.localStorage.getItem('background_sound') || window.localStorage.getItem('background_sound') == null) {
+    if (playSound) {
         background_sound = new Media('/android_asset/www/img/sounds/sound_home.mp3', null, null, function () {
             if (status == Media.MEDIA_STOPPED) {
                 background_sound.play();
@@ -174,19 +183,26 @@ function playMusic() {
         });
         background_sound.play();
         background_sound.setVolume('0.4');
-    //}
+    }
 }
 
-/*
+
 $('#music').change(function () {
     if ($(this).is(":checked")) {
-        window.localStorage.setItem('background_sound', true);
+        window.localStorage.setItem('play_sound', true);
+        playSound = true;
+        playMusic();
     }
     else {
-        window.localStorage.setItem('background_sound', false);
+        window.localStorage.setItem('play_sound', false);
+        playSound = false;
+        background_sound.stop();
     }
-});*/
+});
 
 $('#top').click(function () {
+    if (playSound) {
+        sound_ButtonUp.play();
+    }
     navigator.notification.alert('Game developed within the scope of Mobile Game Development.\nFaculty of Physics and Applied Informatics 2017, Lodz, Poland\n\nAuthors\n - Joao Morgado\n - Paulo Costa\n\n"You talked too much" by Anonymous', null, 'About', 'Close');
 });

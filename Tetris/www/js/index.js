@@ -9,8 +9,8 @@ var app = {
         document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
     },
     onDeviceReady: function () {
-        if (window.localStorage.getItem('background_sound') == null) {
-            window.localStorage.setItem('background_sound', true);
+        if (window.localStorage.getItem('play_sound') == null) {
+            window.localStorage.setItem('play_sound', true);
         }
     }
 };

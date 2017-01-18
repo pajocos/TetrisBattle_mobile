@@ -159,34 +159,34 @@ $(function () {
     $('#left').click(function () {
         if (isStarted) {
             checkMove(curPiece, curX - 1, curY);
-            sound_PieceMoveLR.play();
+            playSoundByName('sound_PieceMoveLR');
         }
     });
 
     $('#right').click(function () {
         if (isStarted) {
             checkMove(curPiece, curX + 1, curY);
-            sound_PieceMoveLR.play();
+            playSoundByName('sound_PieceMoveLR');
         }
     });
     $('#drop-down').click(function () {
         if (isStarted) {
             jump();
-            sound_PieceDrop.play();
+            playSoundByName('sound_PieceDrop');
         }
     });
 
     $('#rotate').click(function () {
         if (isStarted) {
             checkMove(rotateRight(curPiece), curX, curY);
-            sound_PieceRot.play();
+            playSoundByName('sound_PieceRot');
         }
     });
 
     $('#down').click(function () {
         if (isStarted) {
             checkMove(curPiece, curX, curY - 1);
-            sound_PieceDown.play();
+            playSoundByName('sound_PieceDown');
         }
     });
     game();

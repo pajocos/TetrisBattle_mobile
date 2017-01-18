@@ -14,12 +14,14 @@ var app = {
         document.addEventListener('resume', this.resume.bind(this), false);
     },
     onDeviceReady: function () {
+        playSound = window.localStorage.getItem('play_sound');
+
         loadSoundEffects();
-        sound_GameStart.play();
+        playSoundByName('sound_GameStart');
 
         socket = io.connect('http://' + URL + ':3000');
 
-        setTimeout(playMusic, 3000);
+        setTimeout(playSoundByName('background_music'), 3000);
 
         socket.on('connect', function () {
             username = window.localStorage.getItem('username');
@@ -31,18 +33,15 @@ var app = {
             for (var i = 0; i < data.num; i++) {
                 addTrash();
             }
+            navigator.vibrate(500 * data.num * 0.5);
         });
 
         socket.on('win_game', function () {
-            alert('1');
             stopGame();
-            alert('2');
             updateScores(score, true);
-            alert('3');
             navigator.notification.alert('You won the game with ' + score + ' points', function () {
                 window.location.assign("home.html");
             }, 'Winner', 'Go back to main menu');
-            alert('4');
         });
     },
     backButton: function (e) {
@@ -114,4 +113,37 @@ function loadSoundEffects() {
     sound_PieceRot = new Media('/android_asset/www/img/sounds/SFX_PieceRotateLR.ogg');
     sound_PieceDown = new Media('/android_asset/www/img/sounds/SFX_PieceSoftDrop.ogg');
     sound_LineClear = new Media('/android_asset/www/img/sounds/SFX_SpecialLineClearDouble.ogg');
+}
+
+function playSoundByName(name) {
+    if (playSound) {
+        switch (name) {
+            case 'sound_GameOver':
+                sound_GameOver.play();
+                break;
+            case 'sound_GameStart':
+                sound_GameStart.play();
+                break;
+            case 'sound_PieceDrop':
+                sound_PieceDrop.play();
+                break;
+            case 'sound_PieceMoveLR':
+                sound_PieceMoveLR.play();
+                break;
+            case 'sound_PieceRot':
+                sound_PieceRot.play();
+                break;
+            case 'sound_PieceDown':
+                sound_PieceDown.play();
+                break;
+            case 'sound_GameOver':
+                sound_LineClear.play();
+                break;
+            case 'background_music':
+                playMusic();
+                break;
+            default:
+                break;
+        }
+    }
 }
