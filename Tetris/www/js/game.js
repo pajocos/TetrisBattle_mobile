@@ -98,15 +98,13 @@ function updateScores(currentScore, winner) {
 }
 
 function playMusic() {
-    if (window.localStorage.getItem('background_sound')) {
-        background_music = new Media('/android_asset/www/img/sounds/sound_game.mp3', null, null, function () {
-            if (status == Media.MEDIA_STOPPED) {
-                background_music.play();
-            }
-        });
-        background_music.play();
-        background_music.setVolume('0.4');
-    }
+    background_music = new Media('/android_asset/www/img/sounds/sound_game.mp3', null, null, function () {
+        if (status == Media.MEDIA_STOPPED) {
+            background_music.play();
+        }
+    });
+    background_music.play();
+    background_music.setVolume('0.4');
 }
 
 function loadSoundEffects() {
@@ -120,7 +118,7 @@ function loadSoundEffects() {
 }
 
 function playSoundByName(name) {
-    if (playSound) {
+    if (playSound == 'true') {
         switch (name) {
             case 'sound_GameOver':
                 sound_GameOver.play();

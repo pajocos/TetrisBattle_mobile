@@ -11,7 +11,7 @@ var sound_PieceRot;
 var sound_PieceDown;
 var sound_LineClear;
 
-var playSound; //bool
+var playSound;
 ////////////
 
 var board;

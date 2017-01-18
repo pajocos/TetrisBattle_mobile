@@ -44,7 +44,7 @@ var app = {
     offline: function () {
         navigator.notification.alert('No internet connection', function () {
             window.location.assign('home.html');
-        }, 'Information', 'Close dialog');
+        }, 'Information', 'Close');
     }
 
 };
@@ -87,7 +87,7 @@ function initConnections() {
 
     socket.on('reply_to_request_game', function (data) {
         if (data.reply == 'no') {
-            alert(data.user + " doesn't like you :(");
+            navigator.notification.alert(data.user + " doesn't like you :(", null, 'New game', 'Close');
             window.location.assign("home.html");
         }
         else {
@@ -101,14 +101,17 @@ function initConnections() {
 };
 
 $('#settings').click(function () {
-    if (playSound) {
+    if (playSound == 'true') {
         sound_ButtonUp.play();
     }
     if (!isSettingsOpen) {
         isSettingsOpen = true;
         $('#settings-panel').show();
-        if (playSound) {
-            $('.music').prop("checked", true);
+        if (playSound == 'true') {
+            $('#music').prop("checked", true);
+        }
+        else {
+            $('#music').prop("checked", false);
         }
     }
     else {
@@ -150,7 +153,7 @@ function updateLabels() {
 
 function manageList() {
     $("ul li").click(function () {
-        if (playSound) {
+        if (playSound == 'true') {
             sound_ButtonUp.play();
         }
 
@@ -161,7 +164,7 @@ function manageList() {
 
 function startNewGame() {
     $("#newGame-submit").click(function () {
-        if (playSound) {
+        if (playSound == 'true') {
             sound_ButtonUp.play();
         }
 
@@ -170,7 +173,7 @@ function startNewGame() {
         window.localStorage.setItem('opponent', opponent);
 
         if (opponent == null) {
-            alert("No opponent!");
+            navigator.notification.alert("No opponent!", null, "New game", "Close");
         }
         else {
             $('.form-group').empty();
@@ -181,7 +184,7 @@ function startNewGame() {
 }
 
 function playMusic() {
-    if (playSound) {
+    if (playSound == 'true') {
         background_sound = new Media('/android_asset/www/img/sounds/sound_home.mp3', null, null, function () {
             if (status == Media.MEDIA_STOPPED) {
                 background_sound.play();
@@ -196,18 +199,18 @@ function playMusic() {
 $('#music').change(function () {
     if ($(this).is(":checked")) {
         window.localStorage.setItem('play_sound', true);
-        playSound = true;
+        playSound = 'true';
         playMusic();
     }
     else {
         window.localStorage.setItem('play_sound', false);
-        playSound = false;
+        playSound = 'false';
         background_sound.stop();
     }
 });
 
 $('#top').click(function () {
-    if (playSound) {
+    if (playSound == 'true') {
         sound_ButtonUp.play();
     }
     navigator.notification.alert('Game developed within the scope of Mobile Game Development.\nFaculty of Physics and Applied Informatics 2017, Lodz, Poland\n\nAuthors\n - Joao Morgado\n - Paulo Costa\n\n"You talked too much" by Anonymous', null, 'About', 'Close');
