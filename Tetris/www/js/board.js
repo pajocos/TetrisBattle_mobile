@@ -41,6 +41,9 @@ two.src = "img/2.png";
 var three = new Image();
 three.src = "img/3.png";
 
+var bomb = new Image();
+bomb.src = "img/Bomb.png";
+
 function game() {
 
     canvas = document.getElementById("canvas");
@@ -123,6 +126,8 @@ function renderCanvas() {
                 g.drawImage(yellow, x * PIECE_SIZE, y * PIECE_SIZE);
             else if (shape === "Trash")
                 g.drawImage(trash, x * PIECE_SIZE, y * PIECE_SIZE);
+            else if (shape === "Bomb")
+                g.drawImage(bomb, x * PIECE_SIZE, y * PIECE_SIZE);
 
             if (shape != "NoShape") {
                 g.beginPath();

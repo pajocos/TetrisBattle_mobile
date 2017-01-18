@@ -26,6 +26,8 @@ var curY = 0;
 var shadowX;
 var shadowY;
 
+var trashHigh = 0;
+
 var countDownValue = 0;
 
 var animationInterval = null;
@@ -47,6 +49,7 @@ function start() {
     isStarted = true;
     isFallingFinished = false;
     score = 0;
+    trashHigh = 0;
     countDownValue = 3;
     startCountDownTimer();
 }
@@ -146,16 +149,40 @@ function dropOneLine() {
 }
 
 function pieceDropped() {
+    var remove = false;
+
     for (var i = 0; i < 4; i++) {
         var x = curX + getX(curPiece, i);
         var y = curY - getY(curPiece, i);
         board[(y * BOARD_WIDTH) + x] = curPiece.pieceShape;
+        if (board[((y - 1) * BOARD_WIDTH) + x] == 'Bomb') {
+            remove = true;
+        }
+    }
+
+    if (remove) {
+        removeTrash();
     }
 
     removeFullLines();
 
     if (!isFallingFinished) {
         newPiece();
+    }
+}
+
+function removeTrash() {
+    trashHigh--;
+    var clone = board;
+
+    for (var x = 0; x < BOARD_WIDTH; x++) {
+        board[(19 * BOARD_WIDTH) + x] = "NoShape";
+    }
+
+    for (var y = trashHigh; y < BOARD_HEIGHT - 2; y++) {
+        for (var x = 0; x < BOARD_WIDTH; x++) {
+            board[(y * BOARD_WIDTH) + x] = clone[((y + 1) * BOARD_WIDTH) + x];
+        }
     }
 }
 
@@ -192,17 +219,21 @@ function shadow() {
 
 function addTrash() {
     var clone = board;
+
     for (var y = BOARD_HEIGHT - 1; y > 0; y--) {
         for (var x = 0; x < BOARD_WIDTH; x++) {
-
             board[(y * BOARD_WIDTH) + x] = clone[((y - 1) * BOARD_WIDTH) + x];
-
         }
     }
+
+    var bomb = Math.floor(Math.random() * BOARD_WIDTH);
 
     for (var x = 0; x < BOARD_WIDTH; x++) {
         board[x] = "Trash";
     }
+
+    board[bomb] = 'Bomb';
+    trashHigh++;
 }
 
 function removeFullLines() {
