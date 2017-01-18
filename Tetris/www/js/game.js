@@ -69,7 +69,7 @@ function updateScores(currentScore, winner) {
             contentType: "application/x-www-form-urlencoded",
             url: "http://" + URL + ":3000/API/updateScore",
             data: $.param({username: username, score: currentScore}),
-            dataType: "text",
+            dataType: "json",
             success: function () {
                 console.log("High_score updated");
             },
@@ -86,7 +86,7 @@ function updateScores(currentScore, winner) {
             contentType: "application/x-www-form-urlencoded",
             url: "http://" + URL + ":3000/API/updatePoints",
             data: $.param({username: username, score: newXP}),
-            dataType: "text",
+            dataType: "json",
             success: function () {
                 console.log("exp points updated");
             },

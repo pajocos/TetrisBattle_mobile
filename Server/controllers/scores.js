@@ -5,13 +5,19 @@ var db = require('../models/db')
 
 exports.updateHighScore = function (req, res) {
     var user = req.body.username;
-    var score= req.body.score;
+    var score = req.body.score;
 
     db.updateHighScore(user, score, function (result) {
-        if (result)
-            res.sendStatus(200);
-        else
-            res.sendStatus(401);
+        if (result) {
+            res.status(200);
+            res.setHeader('Content-Type', 'application/json');
+            res.json({update: 'success'});
+        }
+        else {
+            res.status(401);
+            res.setHeader('Content-Type', 'application/json');
+            res.json({update: 'error'});
+        }
     })
 }
 
@@ -28,13 +34,19 @@ exports.getHighScore = function (req, res) {
 
 exports.updateExpPoints = function (req, res) {
     var user = req.body.username;
-    var score= req.body.score;
+    var score = req.body.score;
 
     db.updateExpPoints(user, score, function (result) {
-        if (result)
-            res.sendStatus(200);
-        else
-            res.sendStatus(401);
+        if (result) {
+            res.status(200);
+            res.setHeader('Content-Type', 'application/json');
+            res.json({update: 'success'});
+        }
+        else {
+            res.status(401);
+            res.setHeader('Content-Type', 'application/json');
+            res.json({update: 'error'});
+        }
     })
 }
 

@@ -46,15 +46,6 @@ exports.start = function (io) {
 
         client.on('game_over', function (data) {
             io.to(clients_playing[data.user]).emit('win_game', {});
-
-            delete clients_playing[data.user];
-
-            for (var key in clients_playing) {
-                if (clients_playing.hasOwnProperty(key) && data.id == clients_playing.key) {
-                    delete clients_playing[key];
-                    break;
-                }
-            }
         });
 
         client.on('disconnect', function (data) {
@@ -62,6 +53,13 @@ exports.start = function (io) {
             for (var key in clients) {
                 if (clients.hasOwnProperty(key) && data.id == clients.key) {
                     delete clients[key];
+                    break;
+                }
+            }
+
+            for (var key in clients_playing) {
+                if (clients_playing.hasOwnProperty(key) && data.id == clients_playing.key) {
+                    delete clients_playing[key];
                     break;
                 }
             }

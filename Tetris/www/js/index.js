@@ -44,16 +44,15 @@ $("#login-submit").click(function (e) {
     var password = $('#password1').val();
     var rememberMe = $('#checkbox1').val();
 
-    var storage = window.localStorage;
-    storage.setItem('username', username);
-
     $.ajax({
         type: "POST",
         contentType: "application/x-www-form-urlencoded",
         url: "http://" + URL + ":3000/API/login",
         data: $.param({username: username, password: password}),
-        dataType: "text",
+        dataType: "json",
         success: function () {
+            var storage = window.localStorage;
+            storage.setItem('username', username);
             if (rememberMe == 'on') {
                 storage.setItem('remember', true);
                 //In future, put webtoken for authenticity
@@ -84,7 +83,7 @@ $("#register-submit").click(function (e) {
             contentType: "application/x-www-form-urlencoded",
             url: "http://" + URL + ":3000/API/register",
             data: $.param({username: username, password: password}),
-            dataType: "text",
+            dataType: "json",
             success: function () {
                 alert("Success! Login and enjoy the game")
             },
