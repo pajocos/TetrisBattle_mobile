@@ -6,7 +6,7 @@ module.exports = {
     sqlConfig : {
         user: 'postgres',
         database: 'tetrisbattle',
-        password: 'pjpc031094',
+        password: 'tetrisbattle',
         host: 'localhost',
         port: 5432,
         max: 10, // max number of clients in the pool
