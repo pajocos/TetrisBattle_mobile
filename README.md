@@ -1,4 +1,4 @@
-# Tetris Battle
+## Tetris Battle
 
 Multiplayer tetris game developed at University of Lodz, Poland, as part of Erasmus class Design of Mobile Games.
 
